@@ -1,0 +1,30 @@
+.navbar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.4;
+
+  width: 900px;
+  height: 60px;
+  border-radius: 40px;
+  background-color: grey;
+
+  display: flex;
+  align-items: center; /* centrer verticalement le UL */
+  padding-left: 20px; /* marge à gauche */
+
+  z-index: 1000;
+  ul {
+    list-style: none; /* supprime les points */
+    display: flex; /* met les liens sur une ligne */
+    gap: 20px; /* espace entre les liens */
+    margin: 0;
+    padding: 0;
+    color: #1d4ed8;
+  }
+  ul li a {
+    text-decoration: none; /* retire le soulignement */
+    font-size: 18px;
+  }
+}

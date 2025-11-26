@@ -1,0 +1,54 @@
+.login-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  .login-card {
+    display: flex;
+    flex-direction: column;
+    background: rgb(242, 242, 242);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    width: 600px;
+    height: 300px;
+    text-align: center;
+    gap: 1rem;
+
+    h2 {
+      margin-bottom: 1.5rem;
+      color: #60a5fa;
+    }
+
+    input {
+      margin-top: 15px;
+      margin-left: auto;
+      margin-right: auto;
+      width:  400px;
+      height: 40px;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      border: none;
+      outline: none;
+    }
+
+    button {
+      margin-top: 1rem;
+      height: 45px;
+      width: 200px;
+      margin-left: auto;
+      margin-right: auto;
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+
+      &:hover {
+        background: #222;
+      }
+    }
+  }
+}

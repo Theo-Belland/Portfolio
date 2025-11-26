@@ -1,0 +1,86 @@
+.hero {
+  text-align: center;
+  margin-top: 50px;
+
+  .img {
+    height: 300px;
+  }
+
+  .img-rond {
+    clip-path: ellipse(50% 33%);
+  }
+
+  .animated-text {
+    display: inline-block;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 0.8s forwards;
+      display: inline-block;
+    }
+
+    .cursor {
+      display: inline-block;
+      margin-left: 2px;
+      animation: blink 1s infinite;
+    }
+  }
+
+  .colonne {
+    display: flex;
+    align-items: center;
+    gap: 150px;
+    margin-top: 40px;
+  }
+
+  .max-width {
+    max-width: 400px;
+  }
+
+  .text {
+    font-size: 18px;
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes blink {
+    0%,
+    50%,
+    100% {
+      opacity: 1;
+    }
+    25%,
+    75% {
+      opacity: 0;
+    }
+  }
+}
+
+// ✅ Responsive (mobile)
+@media (max-width: 768px) {
+  .hero {
+    .colonne {
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .animated-text {
+      font-size: 15px;
+    }
+    .img {
+      height: 200px;
+    }
+
+    .text {
+      font-size: 14px;
+      max-width: 70%;
+      margin: 0 auto;
+    }
+  }
+}

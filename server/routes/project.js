@@ -1,0 +1,133 @@
+import express from "express";
+import fs from "fs";
+import path from "path";
+import multer from "multer";
+import jwt from "jsonwebtoken";
+
+const router = express.Router();
+
+// --- Paths ---
+const __dirname = path.resolve();
+const uploadsPath = path.join(__dirname, "uploads");
+const dataPath = path.join(__dirname, "projects.json");
+
+if (!fs.existsSync(uploadsPath)) fs.mkdirSync(uploadsPath);
+
+// --- Multer ---
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, uploadsPath),
+  filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname),
+});
+const upload = multer({ storage });
+
+// --- Utils ---
+function readProjects() {
+  if (!fs.existsSync(dataPath)) return [];
+  try {
+    return JSON.parse(fs.readFileSync(dataPath));
+  } catch {
+    return [];
+  }
+}
+
+function saveProjects(projects) {
+  fs.writeFileSync(dataPath, JSON.stringify(projects, null, 2));
+}
+
+// --- Middleware de vérification du token ---
+function verifyToken(req, res, next) {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) return res.status(401).json({ message: "Token manquant" });
+
+  const token = authHeader.split(" ")[1];
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) return res.status(403).json({ message: "Token invalide" });
+    req.user = decoded;
+    next();
+  });
+}
+
+// --- ROUTES PUBLIQUES ---
+// Récupérer tous les projets
+router.get("/", (req, res) => {
+  const projects = readProjects();
+
+  const fixedProjects = projects.map((p) => ({
+    ...p,
+    images: p.images.map((img) => {
+      if (!img) return "";
+      if (img.startsWith("/api/uploads/"))
+        return img.replace("/api/uploads/", "/uploads/");
+      if (!img.startsWith("/uploads/")) return `/uploads/${img}`;
+      return img;
+    }),
+  }));
+
+  res.json(fixedProjects);
+});
+
+// --- ROUTES PROTÉGÉES ---
+// Ajouter un projet
+router.post("/", verifyToken, upload.array("images", 10), (req, res) => {
+  const { title, description, technologies } = req.body;
+  if (!title || !description)
+    return res.status(400).json({ message: "Champs manquants" });
+
+  const projects = readProjects();
+  const newProject = {
+    id: Date.now(),
+    title,
+    description,
+    images: req.files?.map((f) => `/uploads/${f.filename}`) || [],
+    technologies: technologies ? JSON.parse(technologies) : [],
+  };
+
+  projects.push(newProject);
+  saveProjects(projects);
+  res.json(newProject);
+});
+
+// --- Mettre à jour un projet ---
+router.put("/:id", verifyToken, upload.array("images", 10), (req, res) => {
+  const { id } = req.params;
+  const { title, description, technologies, oldImages } = req.body;
+
+  const projects = readProjects();
+  const index = projects.findIndex((p) => p.id === Number(id));
+  if (index === -1)
+    return res.status(404).json({ message: "Projet non trouvé" });
+
+  // Mise à jour des champs
+  projects[index].title = title ?? projects[index].title;
+  projects[index].description = description ?? projects[index].description;
+  projects[index].technologies = technologies
+    ? JSON.parse(technologies)
+    : projects[index].technologies;
+
+  // Gestion des images
+  let images = [];
+  if (oldImages) {
+    images = JSON.parse(oldImages); // images existantes à conserver
+  }
+  if (req.files?.length > 0) {
+    images = [...images, ...req.files.map((f) => `/uploads/${f.filename}`)];
+  }
+  projects[index].images = images;
+
+  saveProjects(projects);
+  res.json(projects[index]);
+});
+
+// --- Supprimer un projet ---
+router.delete("/:id", verifyToken, (req, res) => {
+  const projects = readProjects();
+  const newProjects = projects.filter((p) => p.id !== Number(req.params.id));
+
+  if (projects.length === newProjects.length)
+    return res.status(404).json({ message: "Projet introuvable" });
+
+  saveProjects(newProjects);
+  res.json({ message: "Projet supprimé" });
+});
+
+export default router;

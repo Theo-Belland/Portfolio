@@ -1,0 +1,238 @@
+/* --- Admin Page --- */
+.projects-admin {
+  padding: 2rem;
+  font-family: "Arial", sans-serif;
+  min-height: 100vh;
+
+  .maintenance-banner {
+    border: 1px solid #000;
+    width: 600px;
+    border-radius: 5px;
+    background-color: green;
+    margin-left: 300px;
+    height: 40px;
+    padding: 10px 0px 10px 30px;
+  }
+
+  .button-action {
+    button {
+      margin-left: 15px;
+      margin-bottom: 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 0.3rem 0.8rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+  }
+  /* --- Header --- */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    h2 {
+      font-size: 1.8rem;
+      color: #333;
+    }
+    button {
+      background-color: #e63946;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #c5303f;
+      }
+    }
+  }
+
+  /* --- Tabs --- */
+  .tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    button {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      background-color: #1e293b;
+      color: white;
+      transition: background-color 0.3s;
+
+      &.active {
+        background-color: #1e293b;
+      }
+
+      &:hover:not(.active) {
+        background-color: #999;
+      }
+    }
+  }
+  .project-description {
+    white-space: pre-wrap; /* garde les sauts de ligne */
+    word-wrap: break-word; /* découpe les mots trop longs si besoin */
+  }
+  /* --- Projects Grid --- */
+  .projects-grid-admin {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .project-card-admin {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    h3 {
+      margin: 10px 0 5px;
+      font-size: 1.2rem;
+      color: #333;
+    }
+
+    p {
+      font-size: 0.95rem;
+      color: #555;
+      margin: 0.5rem 0;
+    }
+
+    .project-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+
+      button {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        background-color: #007bff;
+        color: #fff;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+  }
+
+  /* --- Formulaire Ajout / Edit --- */
+  .project-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 500px;
+
+    input[type="text"],
+    textarea {
+      padding: 0.5rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      width: 100%;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    input[type="file"] {
+      margin-top: 0.5rem;
+    }
+
+    button[type="submit"] {
+      background-color: #333;
+      color: #fff;
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #555;
+      }
+    }
+  }
+
+  /* --- Technologies Section --- */
+  .tech-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    .tech-input {
+      display: flex;
+      gap: 0.5rem;
+
+      input[type="text"] {
+        flex: 1;
+      }
+
+      button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 0.3rem 0.8rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+
+    .tech-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+
+      .tech-item {
+        background: #eee;
+        border-radius: 15px;
+        padding: 0.3rem 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+
+        button {
+          border: none;
+          background: transparent;
+          color: #888;
+          cursor: pointer;
+
+          &:hover {
+            color: #e63946;
+          }
+        }
+      }
+    }
+  }
+}
