@@ -13,30 +13,36 @@ export default function Modal({ project, closeModal }) {
 
   const fixImageUrl = (src) => {
     if (!src) return "";
-    const cleanSrc = src.replace(/^\/?api/, "");
-    return `${SITE_URL}${encodeURI(cleanSrc)}`;
+
+    // URL absolue → ne rien toucher
+    if (src.startsWith("http://") || src.startsWith("https://")) {
+      return src;
+    }
+
+    // Supprime /api au début
+    let clean = src.replace(/^\/?api\//, "");
+
+    // Sépare dossier + fichier
+    const parts = clean.split("/");
+    const filename = parts.pop();
+    const path = parts.join("/");
+
+    // Encode seulement le nom du fichier
+    const encoded = encodeURIComponent(filename);
+
+    return `${SITE_URL}/${path}/${encoded}`;
   };
 
   return (
-    <div
-      className="modal-overlay"
-      onClick={closeModal}
-      role="dialog"
-      aria-modal="true"
-    >
+    <div className="modal-overlay" onClick={closeModal}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button
-          className="modal-close"
-          onClick={closeModal}
-          aria-label="Fermer la fenêtre"
-          type="button"
-        >
+        <button className="modal-close" onClick={closeModal}>
           ✕
         </button>
 
         <h2 className="modal-title">{project.title}</h2>
 
-        {project.images && project.images.length > 0 ? (
+        {project.images?.length > 0 ? (
           <Swiper
             modules={[Navigation, Pagination]}
             navigation
@@ -62,14 +68,15 @@ export default function Modal({ project, closeModal }) {
 
         <div className="modal-body">
           <p className="project-description">{project.description}</p>
+
           <p>
             <strong>Technologies :</strong>{" "}
-            {Array.isArray(project.techs) && project.techs.length > 0
-              ? project.techs.join(", ")
+            {project.technologies?.length > 0
+              ? project.technologies.join(", ")
               : "Non spécifiées"}
           </p>
 
-          {Array.isArray(project.tasks) && project.tasks.length > 0 && (
+          {project.tasks?.length > 0 && (
             <>
               <h3>Fonctionnalités</h3>
               <ul>

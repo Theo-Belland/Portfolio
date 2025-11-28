@@ -16,23 +16,17 @@ export default function Projects() {
         const data = await res.json();
 
         if (Array.isArray(data)) {
-          // 🔥 Correction des URLs d’images (supprime les doublons)
           const fixed = data.map((p) => ({
             ...p,
             images: (p.images || []).map((img) => {
-              // 1. Si c’est déjà une URL complète → ok
-              if (img.startsWith("http://") || img.startsWith("https://")) {
+              if (img.startsWith("http://") || img.startsWith("https://"))
                 return img;
-              }
 
-              // 2. Si ça commence par /uploads/ → API_URL + chemin
-              if (img.startsWith("/uploads/")) {
-                return `${API_URL}${img}`;
-              }
+              if (img.startsWith("/uploads/")) return `${API_URL}${img}`;
 
-              // 3. Sinon → ajouter /uploads/
               return `${API_URL}/uploads/${img}`;
             }),
+            technologies: p.technologies || [],
           }));
 
           setProjects(fixed);
@@ -65,9 +59,8 @@ export default function Projects() {
             <div className="project-image-wrapper">
               <img
                 src={
-                  proj.images && proj.images.length > 0
-                    ? proj.images[0] // déjà une URL propre
-                    : "https://via.placeholder.com/400x250?text=Projet"
+                  proj.images?.[0] ||
+                  "https://via.placeholder.com/400x250?text=Projet"
                 }
                 alt={proj.title}
               />

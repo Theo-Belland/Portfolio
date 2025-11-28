@@ -3,28 +3,34 @@
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  opacity: 0.4;
 
   width: 900px;
   height: 60px;
   border-radius: 40px;
-  background-color: grey;
+  background-color: rgba(
+    128,
+    128,
+    128,
+    0.4
+  ); /* 👈 transparence uniquement du fond */
 
   display: flex;
-  align-items: center; /* centrer verticalement le UL */
-  padding-left: 20px; /* marge à gauche */
+  align-items: center;
+  padding-left: 20px;
 
   z-index: 1000;
-  ul {
-    list-style: none; /* supprime les points */
-    display: flex; /* met les liens sur une ligne */
-    gap: 20px; /* espace entre les liens */
-    margin: 0;
-    padding: 0;
-    color: #1d4ed8;
-  }
-  ul li a {
-    text-decoration: none; /* retire le soulignement */
-    font-size: 18px;
-  }
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  font-size: 18px;
+  color: #1d4ed8; /* 👈 le texte redevient opaque */
 }

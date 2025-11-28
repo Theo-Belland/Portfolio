@@ -13,8 +13,23 @@ export default function ProjectSlider({ images = [] }) {
 
   const fixImageUrl = (src) => {
     if (!src) return "";
-    const cleanSrc = src.replace(/^\/?api/, "");
-    return `${SITE_URL}${encodeURI(cleanSrc)}`;
+
+    // URL absolue → ok
+    if (src.startsWith("http://") || src.startsWith("https://")) {
+      return src;
+    }
+
+    // Supprime /api/ seulement si présent au début
+    let clean = src.replace(/^\/?api\//, "");
+
+    // Sépare dossier + fichier
+    const parts = clean.split("/");
+    const filename = parts.pop();
+    const path = parts.join("/");
+
+    const encoded = encodeURIComponent(filename);
+
+    return `${SITE_URL}/${path}/${encoded}`;
   };
 
   return (
