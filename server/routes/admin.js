@@ -5,6 +5,13 @@ const router = express.Router();
 
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
+  console.log("---- LOGIN DEBUG ----");
+  console.log("email reçu:", email);
+  console.log("password reçu:", password);
+  console.log("ENV ADMIN_EMAIL:", process.env.ADMIN_EMAIL);
+  console.log("ENV ADMIN_PASSWORD:", process.env.ADMIN_PASSWORD);
+  console.log("ENV JWT_SECRET:", process.env.JWT_SECRET);
+  console.log("----------------------");
 
   if (!email || !password)
     return res.status(400).json({ message: "Champs manquants" });

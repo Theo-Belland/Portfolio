@@ -16,18 +16,22 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // --- Corrige __dirname pour ES Modules ---
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // --- PATHS IMPORTANT ---
-const distPath = path.resolve("./dist");
-const configPath = path.resolve("./config.json");
-const uploadPath = path.join(__dirname, "uploads"); // dossier uploads correct
+const distPath = path.join(__dirname, "../dist");
+const configPath = path.join(__dirname, "config.json");
+const uploadPath = path.join(__dirname, "uploads");
 
 // --- MIDDLEWARES ---
-app.use(cors());
-app.use(express.json());
+app.use(
+  cors({
+    origin: "*", // tu peux mettre http://localhost:5174 en dev
+  })
+);
 
-// Sert correctement les fichiers du dossier /uploads
+app.use(express.json());
 app.use("/uploads", express.static(uploadPath));
 
 // --- ROUTES API ---
@@ -94,13 +98,14 @@ app.get("/api/verifyToken", (req, res) => {
 // --- SERVE FRONTEND (React / Vite) ---
 app.use(express.static(distPath));
 
-// Fallback → renvoie index.html pour toutes les routes React
+// --- FALLBACK FIX EXPRESS / path-to-regexp ---
 app.get(/^\/(?!api).*/, (req, res) => {
   res.sendFile(path.join(distPath, "index.html"));
 });
 
 // --- START SERVER ---
 app.listen(PORT, () => {
-  console.log(`Serveur en ligne sur http://localhost:${PORT}`);
-  console.log(`Uploads servis depuis : ${uploadPath}`);
+  console.log(`🚀 Serveur en ligne sur http://localhost:${PORT}`);
+  console.log(`📁 Uploads servis depuis : ${uploadPath}`);
+  console.log(`🌐 Frontend servi depuis : ${distPath}`);
 });

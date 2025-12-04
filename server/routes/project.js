@@ -7,11 +7,17 @@ import { fileURLToPath } from "url";
 
 const router = express.Router();
 
-// --- Paths ---
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const uploadsPath = path.join(__dirname, "uploads");
-const dataPath = path.join(__dirname, "projects.json");
+// --- Déclarer SITE_URL en haut ---
+const SITE_URL =
+  process.env.VITE_SITE_URL || `http://localhost:${process.env.PORT || 5000}`;
 
+// --- Chemins corrects ---
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const serverRoot = path.join(__dirname, ".."); // remonte à /server
+const uploadsPath = path.join(serverRoot, "uploads");
+const dataPath = path.join(serverRoot, "projects.json");
+
+// crée uploads si besoin
 if (!fs.existsSync(uploadsPath)) fs.mkdirSync(uploadsPath);
 
 // --- Multer ---
@@ -38,7 +44,7 @@ function saveProjects(projects) {
   fs.writeFileSync(dataPath, JSON.stringify(projects, null, 2));
 }
 
-// --- Middleware ---
+// --- Middleware JWT ---
 function verifyToken(req, res, next) {
   const authHeader = req.headers.authorization;
   if (!authHeader) return res.status(401).json({ message: "Token manquant" });
@@ -51,21 +57,26 @@ function verifyToken(req, res, next) {
   });
 }
 
-// --- ROUTES PUBLIQUES ---
+// --- ROUTES ---
+
+// Get all projects
 router.get("/", (req, res) => {
   const projects = readProjects();
   res.json(
     projects.map((p) => ({
       ...p,
-      images: (p.images || []).map((img) => `/uploads/${path.basename(img)}`),
+      images: (p.images || []).map(
+        (img) => `${SITE_URL}/uploads/${path.basename(img)}`
+      ),
     }))
   );
 });
 
-// --- AJOUTER UN PROJET ---
+// Ajouter projet
 router.post("/", verifyToken, upload.array("images", 10), (req, res) => {
   try {
     const { title, description, technologies } = req.body;
+
     if (!title || !description)
       return res.status(400).json({ message: "Champs manquants" });
 
@@ -87,7 +98,7 @@ router.post("/", verifyToken, upload.array("images", 10), (req, res) => {
   }
 });
 
-// --- MODIFIER UN PROJET ---
+// Modifier projet
 router.put("/:id", verifyToken, upload.array("images", 10), (req, res) => {
   try {
     const { id } = req.params;
@@ -104,12 +115,13 @@ router.put("/:id", verifyToken, upload.array("images", 10), (req, res) => {
       ? JSON.parse(technologies)
       : projects[index].technologies;
 
-    // Images à conserver
+    // Images
     let images = oldImages ? JSON.parse(oldImages) : [];
-    // Nouvelles images
+
     if (req.files?.length > 0) {
       images = [...images, ...req.files.map((f) => `/uploads/${f.filename}`)];
     }
+
     projects[index].images = images;
 
     saveProjects(projects);
@@ -120,7 +132,7 @@ router.put("/:id", verifyToken, upload.array("images", 10), (req, res) => {
   }
 });
 
-// --- SUPPRIMER UN PROJET ---
+// Supprimer projet
 router.delete("/:id", verifyToken, (req, res) => {
   const projects = readProjects();
   const newProjects = projects.filter((p) => p.id !== Number(req.params.id));
