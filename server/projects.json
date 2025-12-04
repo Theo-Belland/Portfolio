@@ -4,10 +4,8 @@
     "title": "Oh My Food",
     "description": "Ohmyfood\r\n\r\nProjet Numéro 4 de la formation d'intégrateur web de chez OpenClassroom.\r\n\r\nObjectif : Améliorez l'interface d'un site mobile avec des animations CSS.\r\n\r\nDévelopper le site en Mobile First.\r\n\r\n/* Site Responsive */ \r\n\r\n-> Utilisation de SASS.\r\n\r\n/* Animation */\r\n\r\n-> Ajout des Animations de \"like\".\r\n-> Sélection des plats.\r\n-> plat qui arrive en decaler\r\n-> Loader.",
     "images": [
-      "/uploads/1762268196773-Screenshot 2025-11-04 at 15-56-27 La Palette du gout.png",
-      "/uploads/1762268196773-Screenshot 2025-11-04 at 15-56-21 La Palette du gout.png",
-      "/uploads/1762268196774-Screenshot 2025-11-04 at 15-56-08 Ohmyfood.png",
-      "/uploads/1762268196777-Screenshot 2025-11-04 at 15-55-58 Ohmyfood.png"
+      "/uploads/589718695_122148446402822383_3677545415299408839_n.jpeg",
+      "/uploads/1764332530642-589718695_122148446402822383_3677545415299408839_n.jpg"
     ],
     "technologies": [
       "SASS",
@@ -19,11 +17,7 @@
     "id": 1762445293150,
     "title": "test2",
     "description": "test",
-    "images": [
-      "/uploads/1762445293147-1762147543.webp",
-      "/uploads/1762445293148-1755152957.webp",
-      "/uploads/1762445293148-1755152956.webp"
-    ],
+    "images": [],
     "technologies": [
       "html",
       "css",

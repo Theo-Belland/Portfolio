@@ -11,38 +11,58 @@ export default function Projects() {
 
   useEffect(() => {
     const fetchProjects = async () => {
+      console.log("📡 Chargement depuis :", `${API_URL}/projects`);
+
       try {
         const res = await fetch(`${API_URL}/projects`);
         const data = await res.json();
 
-        if (Array.isArray(data)) {
-          const fixed = data.map((p) => ({
-            ...p,
-            images: (p.images || []).map((img) => {
-              if (img.startsWith("http://") || img.startsWith("https://"))
-                return img;
+        console.log("📦 Projets reçus :", data);
 
-              if (img.startsWith("/uploads/")) return `${API_URL}${img}`;
-
-              return `${API_URL}/uploads/${img}`;
-            }),
-            technologies: p.technologies || [],
-          }));
-
-          setProjects(fixed);
+        if (!Array.isArray(data)) {
+          console.error("❌ Format incorrect :", data);
+          return;
         }
+
+        const fixed = data.map((p) => ({
+          ...p,
+          images: (p.images || []).map((img) => {
+            if (!img) return "";
+
+            // URL absolue
+            if (img.startsWith("http://") || img.startsWith("https://"))
+              return img;
+
+            // Déjà formatté
+            if (img.startsWith("/uploads/")) return `${API_URL}${img}`;
+
+            // Cas rare
+            return `${API_URL}/uploads/${img}`;
+          }),
+          technologies: p.technologies || [],
+        }));
+
+        setProjects(fixed);
       } catch (err) {
-        console.error("Erreur de récupération :", err);
+        console.error("❌ Erreur de récupération :", err);
       } finally {
         setLoading(false);
       }
     };
 
     fetchProjects();
-  }, []);
+  }, [API_URL]); // dépendance correcte
 
   if (loading) {
     return <p style={{ textAlign: "center" }}>Chargement des projets...</p>;
+  }
+
+  if (projects.length === 0) {
+    return (
+      <p style={{ textAlign: "center", marginTop: "40px" }}>
+        Aucun projet trouvé.
+      </p>
+    );
   }
 
   return (

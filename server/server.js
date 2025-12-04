@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 
 import contactRouter from "./routes/contact.js";
 import projectRouter from "./routes/project.js";
@@ -14,19 +15,19 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Corrige __dirname pour ES modules
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
+// --- Corrige __dirname pour ES Modules ---
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // --- PATHS IMPORTANT ---
 const distPath = path.resolve("./dist");
 const configPath = path.resolve("./config.json");
-const uploadPath = path.join(__dirname, "uploads"); // <--- CORRECTION ICI
+const uploadPath = path.join(__dirname, "uploads"); // dossier uploads correct
 
 // --- MIDDLEWARES ---
 app.use(cors());
 app.use(express.json());
 
-// Sert correctement les fichiers du dossier /server/uploads
+// Sert correctement les fichiers du dossier /uploads
 app.use("/uploads", express.static(uploadPath));
 
 // --- ROUTES API ---
@@ -90,15 +91,15 @@ app.get("/api/verifyToken", (req, res) => {
   });
 });
 
-// --- FRONTEND (VITE / React) ---
+// --- SERVE FRONTEND (React / Vite) ---
 app.use(express.static(distPath));
 
-// --- Fallback pour toutes les routes non-API ---
+// Fallback → renvoie index.html pour toutes les routes React
 app.get(/^\/(?!api).*/, (req, res) => {
   res.sendFile(path.join(distPath, "index.html"));
 });
 
-// --- LANCEMENT DU SERVEUR ---
+// --- START SERVER ---
 app.listen(PORT, () => {
   console.log(`Serveur en ligne sur http://localhost:${PORT}`);
   console.log(`Uploads servis depuis : ${uploadPath}`);

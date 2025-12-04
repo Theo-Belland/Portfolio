@@ -3,11 +3,12 @@ import fs from "fs";
 import path from "path";
 import multer from "multer";
 import jwt from "jsonwebtoken";
+import { fileURLToPath } from "url";
 
 const router = express.Router();
 
 // --- Paths ---
-const __dirname = path.resolve();
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const uploadsPath = path.join(__dirname, "uploads");
 const dataPath = path.join(__dirname, "projects.json");
 
@@ -16,8 +17,10 @@ if (!fs.existsSync(uploadsPath)) fs.mkdirSync(uploadsPath);
 // --- Multer ---
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadsPath),
-  filename: (req, file, cb) =>
-    cb(null, Date.now() + "-" + file.originalname.replace(/\s/g, "_")),
+  filename: (req, file, cb) => {
+    const safeName = Date.now() + "-" + file.originalname.replace(/\s/g, "_");
+    cb(null, safeName);
+  },
 });
 const upload = multer({ storage });
 
@@ -49,24 +52,17 @@ function verifyToken(req, res, next) {
 }
 
 // --- ROUTES PUBLIQUES ---
-// Récupérer tous les projets
 router.get("/", (req, res) => {
   const projects = readProjects();
-  const fixedProjects = projects.map((p) => ({
-    ...p,
-    images: (p.images || []).map((img) => {
-      if (!img) return "";
-      if (img.startsWith("/api/uploads/"))
-        return img.replace("/api/uploads/", "/uploads/");
-      if (!img.startsWith("/uploads/")) return `/uploads/${img}`;
-      return img;
-    }),
-  }));
-  res.json(fixedProjects);
+  res.json(
+    projects.map((p) => ({
+      ...p,
+      images: (p.images || []).map((img) => `/uploads/${path.basename(img)}`),
+    }))
+  );
 });
 
-// --- ROUTES PROTÉGÉES ---
-// Ajouter un projet
+// --- AJOUTER UN PROJET ---
 router.post("/", verifyToken, upload.array("images", 10), (req, res) => {
   try {
     const { title, description, technologies } = req.body;
@@ -91,7 +87,7 @@ router.post("/", verifyToken, upload.array("images", 10), (req, res) => {
   }
 });
 
-// Mettre à jour un projet
+// --- MODIFIER UN PROJET ---
 router.put("/:id", verifyToken, upload.array("images", 10), (req, res) => {
   try {
     const { id } = req.params;
@@ -102,22 +98,15 @@ router.put("/:id", verifyToken, upload.array("images", 10), (req, res) => {
     if (index === -1)
       return res.status(404).json({ message: "Projet non trouvé" });
 
-    // Mise à jour des champs
     projects[index].title = title ?? projects[index].title;
     projects[index].description = description ?? projects[index].description;
     projects[index].technologies = technologies
       ? JSON.parse(technologies)
       : projects[index].technologies;
 
-    // Gestion des images
-    let images = [];
-    if (oldImages) {
-      try {
-        images = JSON.parse(oldImages);
-      } catch {
-        images = [];
-      }
-    }
+    // Images à conserver
+    let images = oldImages ? JSON.parse(oldImages) : [];
+    // Nouvelles images
     if (req.files?.length > 0) {
       images = [...images, ...req.files.map((f) => `/uploads/${f.filename}`)];
     }
@@ -126,16 +115,15 @@ router.put("/:id", verifyToken, upload.array("images", 10), (req, res) => {
     saveProjects(projects);
     res.json(projects[index]);
   } catch (err) {
-    console.error("Erreur lors de la mise à jour :", err);
+    console.error("Erreur mise à jour :", err);
     res.status(500).json({ message: "Erreur serveur lors de la mise à jour" });
   }
 });
 
-// Supprimer un projet
+// --- SUPPRIMER UN PROJET ---
 router.delete("/:id", verifyToken, (req, res) => {
   const projects = readProjects();
   const newProjects = projects.filter((p) => p.id !== Number(req.params.id));
-
   if (projects.length === newProjects.length)
     return res.status(404).json({ message: "Projet introuvable" });
 
