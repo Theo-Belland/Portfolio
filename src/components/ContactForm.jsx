@@ -42,7 +42,7 @@ export default function ContactForm() {
   };
 
   return (
-    <form className="form-contact" onSubmit={handleSubmit}>
+    <form className="form-contact" onSubmit={handleSubmit} id="contact">
       <h3>Contact</h3>
 
       <input

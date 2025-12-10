@@ -9,64 +9,52 @@ export default function Projects() {
 
   const API_URL = import.meta.env.VITE_API_URL;
 
+  // Fetch projets (locaux + GitHub importés via backend)
+  const fetchProjects = async () => {
+    try {
+      const res = await fetch(`${API_URL}/projects`);
+      const data = await res.json();
+
+      if (!Array.isArray(data)) return [];
+
+      const fixed = data.map((p) => ({
+        ...p,
+        images: (p.images || []).map((img) => {
+          if (!img) return "";
+          if (img.startsWith("http://") || img.startsWith("https://"))
+            return img;
+          if (img.startsWith("/uploads/")) return `${API_URL}${img}`;
+          return `${API_URL}/uploads/${img}`;
+        }),
+        technologies: p.technologies || [],
+      }));
+
+      return fixed;
+    } catch (err) {
+      console.error("Erreur API projets :", err);
+      return [];
+    }
+  };
+
   useEffect(() => {
-    const fetchProjects = async () => {
-      console.log("📡 Chargement depuis :", `${API_URL}/projects`);
-
-      try {
-        const res = await fetch(`${API_URL}/projects`);
-        const data = await res.json();
-
-        console.log("📦 Projets reçus :", data);
-
-        if (!Array.isArray(data)) {
-          console.error("❌ Format incorrect :", data);
-          return;
-        }
-
-        const fixed = data.map((p) => ({
-          ...p,
-          images: (p.images || []).map((img) => {
-            if (!img) return "";
-
-            // URL absolue
-            if (img.startsWith("http://") || img.startsWith("https://"))
-              return img;
-
-            // Déjà formatté
-            if (img.startsWith("/uploads/")) return `${API_URL}${img}`;
-
-            // Cas rare
-            return `${API_URL}/uploads/${img}`;
-          }),
-          technologies: p.technologies || [],
-        }));
-
-        setProjects(fixed);
-      } catch (err) {
-        console.error("❌ Erreur de récupération :", err);
-      } finally {
-        setLoading(false);
-      }
+    const load = async () => {
+      setLoading(true);
+      const localAndGitHub = await fetchProjects();
+      setProjects(localAndGitHub);
+      setLoading(false);
     };
+    load();
+  }, [API_URL]);
 
-    fetchProjects();
-  }, [API_URL]); // dépendance correcte
+  if (loading) return <p style={{ textAlign: "center" }}>Chargement…</p>;
 
-  if (loading) {
-    return <p style={{ textAlign: "center" }}>Chargement des projets...</p>;
-  }
-
-  if (projects.length === 0) {
+  if (projects.length === 0)
     return (
-      <p style={{ textAlign: "center", marginTop: "40px" }}>
-        Aucun projet trouvé.
-      </p>
+      <p style={{ textAlign: "center", marginTop: "40px" }}>Aucun projet.</p>
     );
-  }
 
   return (
-    <section className="projects">
+    <section className="projects" id="project">
       <h2>Mes Projets</h2>
 
       <div className="projects-grid">

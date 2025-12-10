@@ -1,85 +1,82 @@
 .footer {
   width: 100%;
-  background-color: #1e293b;
+  background-color: #03071280;
   color: white;
   padding: 1.5rem 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 2rem;
-}
 
-.footer > * {
-  flex: 1;
-  text-align: center;
-}
-
-/* --- Socials --- */
-.socials {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-
-  a {
-    color: white;
-    font-size: 1.5rem;
-    transition: color 0.3s ease;
-
-    &:hover {
-      color: #60a5fa;
-    }
+  > * {
+    flex: 1;
+    text-align: center;
   }
-}
 
-/* --- Legal --- */
-.legal {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+  /* --- Socials --- */
+  .socials {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
 
-  a {
-    color: #cbd5e1;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.3s ease;
-
-    &:hover {
+    a {
       color: white;
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #60a5fa;
+      }
     }
   }
-}
 
-/* --- Admin icon --- */
-.admin-icon {
-  display: flex;
-  justify-content: center;
-  cursor: pointer;
+  /* --- Legal --- */
+  .legal {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
 
-  svg {
-    font-size: 2rem;
-    transition: color 0.3s ease;
+    a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
 
-    &:hover {
-      color: #60a5fa;
+      &:hover {
+        color: white;
+      }
     }
   }
-}
 
-/* --- Responsive --- */
-@media screen and (max-width: 768px) {
-  .footer {
+  /* --- Admin icon --- */
+  .admin-icon {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+
+    svg {
+      font-size: 2rem;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #60a5fa;
+      }
+    }
+  }
+
+  /* --- Responsive --- */
+  @media screen and (max-width: 768px) {
     flex-direction: column;
     gap: 1.5rem;
     text-align: center;
 
-    /* On neutralise le flex:1 du parent */
     > * {
       flex: none;
       width: 100%;
     }
-  }
 
-  .legal {
-    align-items: center;
+    .legal {
+      align-items: center;
+    }
   }
 }

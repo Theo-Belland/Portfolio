@@ -27,7 +27,7 @@ const uploadPath = path.join(__dirname, "uploads");
 // --- MIDDLEWARES ---
 app.use(
   cors({
-    origin: "*", // tu peux mettre http://localhost:5174 en dev
+    origin: "*", // en dev tu peux mettre http://localhost:5174
   })
 );
 
@@ -95,17 +95,29 @@ app.get("/api/verifyToken", (req, res) => {
   });
 });
 
-// --- SERVE FRONTEND (React / Vite) ---
-app.use(express.static(distPath));
+// --- SERVE FRONTEND (React / Vite) uniquement en prod ---
+const isProd = process.env.NODE_ENV === "production";
 
-// --- FALLBACK FIX EXPRESS / path-to-regexp ---
-app.get(/^\/(?!api).*/, (req, res) => {
-  res.sendFile(path.join(distPath, "index.html"));
-});
+if (isProd) {
+  app.use(express.static(distPath));
+
+  // fallback pour React Router
+  app.get(/^\/(?!api).*/, (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
+  });
+} else {
+  console.log(
+    "⚡ Mode dev : le frontend est servi par Vite sur localhost:5174"
+  );
+}
 
 // --- START SERVER ---
 app.listen(PORT, () => {
   console.log(`🚀 Serveur en ligne sur http://localhost:${PORT}`);
   console.log(`📁 Uploads servis depuis : ${uploadPath}`);
-  console.log(`🌐 Frontend servi depuis : ${distPath}`);
+  if (isProd) {
+    console.log(`🌐 Frontend servi depuis : ${distPath}`);
+  } else {
+    console.log("🌐 Frontend en dev sur Vite (localhost:5174)");
+  }
 });

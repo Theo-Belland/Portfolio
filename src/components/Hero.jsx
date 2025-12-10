@@ -38,30 +38,71 @@ export default function Hero() {
   }, [displayedText, isDeleting, currentWordIndex, words]);
 
   return (
-    <section className="hero">
-      <h1>Théo Belland</h1>
-      <p className="animated-text">
-        Développeur-Web <span className="dynamic-text">{displayedText}</span>
-        <span className="cursor">|</span>
-      </p>
-      <div className="colonne">
-        <div>
-          <img className="img img-rond" src={profilImg} alt="photo-profil" />
-        </div>
-        <div className="max-witdh">
-          <h2>Présentation</h2>
-          <p className="text">
-            Bonjour, moi c’est Théo, j’ai 25 ans et je me suis récemment lancé
-            dans une reconversion professionnelle vers le développement web.
-            Passionné par le numérique et curieux d’apprendre, j’ai choisi de
-            suivre une formation en création de sites web afin d’acquérir des
-            bases solides en HTML, CSS, JavaScript et en conception d’interfaces
-            modernes. Aujourd’hui, je prends plaisir à créer des projets
-            concrets et à développer mes compétences pour construire des sites à
-            la fois esthétiques, fonctionnels et accessibles. Cette aventure est
-            pour moi une nouvelle étape vers un métier qui me passionne vraiment
-            !
-          </p>
+    <section className="hero" id="presentation">
+      <div className="hero-box">
+        <h1>Théo Belland</h1>
+        <p className="animated-text">
+          Développeur-Web <span className="dynamic-text">{displayedText}</span>
+          <span className="cursor">|</span>
+        </p>
+        <div className="colonne">
+          <div>
+            <img className="img img-rond" src={profilImg} alt="photo-profil" />
+          </div>
+          <div className="max-width">
+            <h2>Présentation</h2>
+            <div className="presentation-wrapper">
+              <div className="section">
+                <h3>👋 À propos de moi</h3>
+                <p>
+                  Bonjour, moi c’est Théo. À 25 ans, j’ai choisi de me
+                  reconvertir dans le développement web afin de me diriger vers
+                  un domaine qui me passionne vraiment.
+                </p>
+              </div>
+
+              <div className="separator"></div>
+
+              <div className="section">
+                <h3>🎓 Parcours & formation</h3>
+                <p>
+                  Après une formation centrée sur les fondamentaux du front-end
+                  (HTML, CSS, JavaScript) et la création d’interfaces modernes,
+                  j’ai commencé à développer des projets concrets qui m’ont
+                  permis de renforcer mes bases, d’explorer de nouvelles
+                  technologies et de structurer ma manière de travailler.
+                </p>
+              </div>
+
+              <div className="separator"></div>
+
+              <div className="section">
+                <h3>🎨 Ce que j’aime faire</h3>
+                <p>
+                  Je m’intéresse particulièrement au développement front-end
+                  orienté design : concevoir des interfaces claires,
+                  esthétiques, responsives et agréables à utiliser. J’aime
+                  transformer une idée en une expérience digitale fluide,
+                  pratique et visuellement soignée.
+                </p>
+              </div>
+
+              <div className="separator"></div>
+
+              <div className="section">
+                <h3>🚀 Objectifs</h3>
+                <p>
+                  Aujourd’hui, je continue de monter en compétences :
+                  organisation du code, animations, logique JavaScript, bonnes
+                  pratiques, UX… Mon objectif est d’évoluer dans un
+                  environnement où je pourrai contribuer à des projets
+                  ambitieux, apprendre au contact d’autres développeurs et
+                  progresser chaque jour dans un métier qui me motive
+                  réellement.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

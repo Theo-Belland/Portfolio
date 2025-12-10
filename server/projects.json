@@ -1,26 +1,109 @@
 [
   {
-    "id": 1762268196795,
-    "title": "Oh My Food",
-    "description": "Ohmyfood\r\n\r\nProjet Numéro 4 de la formation d'intégrateur web de chez OpenClassroom.\r\n\r\nObjectif : Améliorez l'interface d'un site mobile avec des animations CSS.\r\n\r\nDévelopper le site en Mobile First.\r\n\r\n/* Site Responsive */ \r\n\r\n-> Utilisation de SASS.\r\n\r\n/* Animation */\r\n\r\n-> Ajout des Animations de \"like\".\r\n-> Sélection des plats.\r\n-> plat qui arrive en decaler\r\n-> Loader.",
-    "images": [
-      "/uploads/1764865517812-ZToepNt3.jpg"
-    ],
-    "technologies": [
-      "SASS",
-      "HTML",
-      "SCSS"
-    ]
+    "id": "gh_1095477667",
+    "title": "Argent-Bank",
+    "description": "Aucune description",
+    "github_url": "https://github.com/Theo-Belland/Argent-Bank",
+    "technologies": [],
+    "images": [],
+    "imported": true,
+    "updated_at": "2025-12-04T09:55:02Z",
+    "pushed_at": "2025-12-04T09:54:58Z"
   },
   {
-    "id": 1762445293150,
-    "title": "test2",
-    "description": "test",
+    "id": "gh_1033138000",
+    "title": "Kasa",
+    "description": "Aucune description",
+    "github_url": "https://github.com/Theo-Belland/Kasa",
+    "technologies": [],
     "images": [],
+    "imported": true,
+    "updated_at": "2025-08-28T11:34:34Z",
+    "pushed_at": "2025-08-28T11:34:31Z"
+  },
+  {
+    "id": "gh_1044986774",
+    "title": "NinaCarducci",
+    "description": "Aucune description",
+    "github_url": "https://github.com/Theo-Belland/NinaCarducci",
+    "technologies": [],
+    "images": [],
+    "imported": true,
+    "updated_at": "2025-09-11T16:26:56Z",
+    "pushed_at": "2025-09-11T16:26:52Z"
+  },
+  {
+    "id": "gh_1093794386",
+    "title": "noah_belland",
+    "description": "Aucune description",
+    "github_url": "https://github.com/Theo-Belland/noah_belland",
+    "technologies": [],
+    "images": [],
+    "imported": true,
+    "updated_at": "2025-11-10T22:09:25Z",
+    "pushed_at": "2025-11-10T22:09:16Z"
+  },
+  {
+    "id": "gh_997357951",
+    "title": "Ohmyfood",
+    "description": "🎯 Objectif\r\nDévelopper un site mobile-first qui répertorie les menus de restaurants gastronomiques et permet aux utilisateurs de naviguer facilement entre les différentes offres culinaires.\r\n\r\n📌 Contexte\r\nProjet réalisé dans le cadre d’un exercice visant à apprendre et mettre en pratique la conception d’une interface responsive, l’organisation d’une structure front-end propre et l’utilisation de SASS pour un style modulaire et maintenable.\r\n\r\n🛠 Contraintes\r\n• Site mobile first obligatoire  \r\n• Responsive sur toutes les tailles d’écran  \r\n• Utilisation de SASS pour structurer les styles  \r\n• Hiérarchie visuelle simple et lisible  \r\n• Design moderne, gastronomique, élégant  \r\n\r\n✨ Fonctionnalités attendues\r\n• Listing des menus gastronomiques  \r\n• Mise en avant des plats / visuels  \r\n• Navigation intuitive mobile  \r\n• Modal détaillée d’un menu  \r\n• Séparation claire des sections (plats, prix, description)  \r\n\r\n🚀 Résultat attendu\r\nUn site clair, élégant, optimisé pour smartphone, avec un design gastronomique premium et un code SASS bien structuré.\r\n",
+    "github_url": "https://github.com/Theo-Belland/Ohmyfood",
     "technologies": [
-      "html",
-      "css",
-      "react"
-    ]
+      "SASS",
+      "HTML"
+    ],
+    "images": [
+      "http://localhost:5000/uploads/1765274568282-Screenshot_2025-12-09_at_11-02-30_La_Palette_du_gout.png",
+      "http://localhost:5000/uploads/1765274568285-Screenshot_2025-12-09_at_11-02-09_Ohmyfood.png",
+      "http://localhost:5000/uploads/1765274568335-Screenshot_2025-12-09_at_11-02-01_Ohmyfood.png",
+      "http://localhost:5000/uploads/1765274568336-Screenshot_2025-12-09_at_11-01-36_Ohmyfood.png"
+    ],
+    "imported": true,
+    "updated_at": "2025-07-04T12:40:31Z",
+    "pushed_at": "2025-07-04T12:40:29Z"
+  },
+  {
+    "id": "gh_1104639587",
+    "title": "Portfolio",
+    "description": "Aucune description",
+    "github_url": "https://github.com/Theo-Belland/Portfolio",
+    "technologies": [],
+    "images": [],
+    "imported": true,
+    "updated_at": "2025-12-04T16:45:50Z",
+    "pushed_at": "2025-12-04T16:45:45Z"
+  },
+  {
+    "id": "gh_1014177097",
+    "title": "Print-IT",
+    "description": "Aucune description",
+    "github_url": "https://github.com/Theo-Belland/Print-IT",
+    "technologies": [],
+    "images": [],
+    "imported": true,
+    "updated_at": "2025-07-07T09:21:45Z",
+    "pushed_at": "2025-07-07T09:21:41Z"
+  },
+  {
+    "id": "gh_1091588683",
+    "title": "Débuggez le site d'une agence d'événementiel",
+    "description": "Aucune description",
+    "github_url": "https://github.com/Theo-Belland/Projet_9_debug",
+    "technologies": [],
+    "images": [],
+    "imported": true,
+    "updated_at": "2025-11-10T12:46:55Z",
+    "pushed_at": "2025-11-10T12:46:51Z"
+  },
+  {
+    "id": "gh_1015942997",
+    "title": "Sophie-bluel",
+    "description": "Aucune description",
+    "github_url": "https://github.com/Theo-Belland/Sophie-bluel",
+    "technologies": [],
+    "images": [],
+    "imported": true,
+    "updated_at": "2025-08-06T10:31:48Z",
+    "pushed_at": "2025-08-06T10:31:45Z"
   }
 ]

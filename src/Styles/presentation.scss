@@ -1,51 +1,115 @@
-.hero {
-  text-align: center;
-  margin-top: 50px;
+@use "mixins" as *;
 
+.hero {
+  display: flex;
+  justify-content: center;
+  padding-top: 140px; // espace sous navbar
+  margin-bottom: 60px;
+
+  .hero-box {
+    @include section-box;
+    animation: slideUpHero 0.5s ease-out;
+    text-align: center;
+  }
+
+  /* === TITRE PRINCIPAL === */
+  h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    color: #f3e8ff;
+  }
+
+  /* === TEXTE ANIMÉ === */
+  .animated-text {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+
+    .dynamic-text {
+      color: #c084fc;
+      font-weight: 600;
+    }
+
+    .cursor {
+      animation: blink 1s infinite;
+    }
+  }
+
+  /* === LAYOUT (photo + texte) === */
+  .colonne {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 70px;
+  }
+
+  /* === PHOTO === */
   .img {
-    height: 300px;
+    height: 260px;
+    width: auto;
+    border-radius: 18px;
+    box-shadow: 0 0 15px rgba(150, 0, 255, 0.3);
   }
 
   .img-rond {
     clip-path: ellipse(50% 33%);
   }
 
-  .animated-text {
-    display: inline-block;
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-
-    .fade-in {
-      opacity: 0;
-      animation: fadeIn 0.8s forwards;
-      display: inline-block;
-    }
-
-    .cursor {
-      display: inline-block;
-      margin-left: 2px;
-      animation: blink 1s infinite;
-    }
-  }
-
-  .colonne {
-    display: flex;
-    align-items: center;
-    gap: 150px;
-    margin-top: 40px;
-  }
-
+  /* === CONTENU TEXTE === */
   .max-width {
-    max-width: 400px;
+    max-width: 600px;
+    text-align: left;
   }
 
-  .text {
-    font-size: 18px;
+  .max-width h2 {
+    color: #c084fc;
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 
-  @keyframes fadeIn {
+  /* === Présentation stylisée === */
+  .presentation-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+
+    .section h3 {
+      font-size: 1.2rem;
+      color: #d6b1ff;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .section p {
+      font-size: 1rem;
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+
+    .separator {
+      height: 1px;
+      width: 100%;
+      background: linear-gradient(
+        90deg,
+        rgba(150, 0, 255, 0) 0%,
+        rgba(150, 0, 255, 0.5) 50%,
+        rgba(150, 0, 255, 0) 100%
+      );
+      margin: 0.5rem 0;
+    }
+  }
+
+  /* === ANIMATIONS === */
+  @keyframes slideUpHero {
+    from {
+      opacity: 0;
+      transform: translateY(25px);
+    }
     to {
       opacity: 1;
+      transform: translateY(0);
     }
   }
 
@@ -62,25 +126,52 @@
   }
 }
 
-// ✅ Responsive (mobile)
+/* ===================================================== */
+/* ====================== RESPONSIVE ===================== */
+/* ===================================================== */
+
 @media (max-width: 768px) {
   .hero {
-    .colonne {
-      flex-direction: column;
-      gap: 40px;
+    padding-top: 140px; // on garde la même hauteur top
+    margin-bottom: 40px;
+
+    .hero-box {
+      padding: 2rem 0.8rem !important;
+      // ↑ Haut/bas inchangés (2rem)
+      // ↑ Côtés très réduits (0.8rem) → bords visibles
+    }
+
+    h1 {
+      font-size: 1.7rem;
     }
 
     .animated-text {
-      font-size: 15px;
-    }
-    .img {
-      height: 200px;
+      font-size: 1rem;
+      margin-bottom: 1.3rem;
     }
 
-    .text {
-      font-size: 14px;
-      max-width: 70%;
-      margin: 0 auto;
+    .colonne {
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
+    }
+
+    .img {
+      height: 150px;
+    }
+
+    .max-width {
+      text-align: center;
+      max-width: 95%; // on resserre pour voir les bords
+    }
+
+    .presentation-wrapper .section h3 {
+      font-size: 1.05rem;
+    }
+
+    .presentation-wrapper .section p {
+      font-size: 0.85rem;
+      line-height: 1.5;
     }
   }
 }

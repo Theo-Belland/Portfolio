@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import TechBadge from "../components/TechBadge.jsx";
+import "../Styles/add-project.scss";
 
 export default function EditProject() {
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [project, setProject] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -15,22 +18,22 @@ export default function EditProject() {
   const token = localStorage.getItem("token");
   const API_URL = import.meta.env.VITE_API_URL;
 
+  // ------------------------------
+  // Récupérer le projet par ID
+  // ------------------------------
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const res = await fetch(`${API_URL}/projects`);
+        const res = await fetch(`${API_URL}/projects/${id}`);
+        if (!res.ok) throw new Error("Projet introuvable");
         const data = await res.json();
-        const proj = data.find((p) => p.id === Number(id));
-        if (!proj) setStatus("❌ Projet introuvable.");
-        else {
-          setProject(proj);
-          setTitle(proj.title);
-          setDescription(proj.description);
-          setTechnos(proj.technologies || []);
-        }
+        setProject(data);
+        setTitle(data.title);
+        setDescription(data.description);
+        setTechnos(data.technologies || []);
       } catch (err) {
         console.error(err);
-        setStatus("⚠️ Impossible de charger le projet.");
+        setStatus("❌ Projet introuvable.");
       }
     };
     fetchProject();
@@ -46,6 +49,13 @@ export default function EditProject() {
   };
 
   const removeTech = (tech) => setTechnos(technos.filter((t) => t !== tech));
+
+  const removeImage = (img) => {
+    setProject({
+      ...project,
+      images: project.images.filter((i) => i !== img),
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -98,9 +108,10 @@ export default function EditProject() {
           required
         />
 
+        {/* Technologies */}
         <div>
           <label>Technologies :</label>
-          <div>
+          <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.5rem" }}>
             <input
               type="text"
               placeholder="ex: React"
@@ -111,29 +122,75 @@ export default function EditProject() {
               Ajouter
             </button>
           </div>
-          <div>
+          <div
+            style={{
+              marginTop: "0.5rem",
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "0.5rem",
+            }}
+          >
             {technos.map((tech, i) => (
-              <span key={i}>
-                {tech}{" "}
-                <button type="button" onClick={() => removeTech(tech)}>
-                  ✕
-                </button>
-              </span>
+              <TechBadge key={i} tech={tech} onRemove={removeTech} />
             ))}
           </div>
         </div>
 
+        {/* Images existantes */}
+        {project.images?.length > 0 && (
+          <div style={{ marginTop: "1rem" }}>
+            <label>Images existantes :</label>
+            <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+              {project.images.map((img, i) => (
+                <div key={i} style={{ position: "relative" }}>
+                  <img
+                    src={img}
+                    alt={`Projet ${i}`}
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeImage(img)}
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      right: 0,
+                      background: "red",
+                      color: "#fff",
+                      border: "none",
+                      borderRadius: "50%",
+                      width: "20px",
+                      height: "20px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Ajouter nouvelles images */}
         <input
           type="file"
           accept="image/*"
           multiple
           onChange={handleFilesChange}
+          style={{ marginTop: "1rem" }}
         />
 
-        <button type="submit">✅ Enregistrer</button>
+        <button type="submit" style={{ marginTop: "1rem" }}>
+          ✅ Enregistrer
+        </button>
       </form>
 
-      {status && <p>{status}</p>}
+      {status && <p style={{ marginTop: "0.5rem" }}>{status}</p>}
     </div>
   );
 }

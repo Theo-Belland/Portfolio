@@ -1,44 +1,126 @@
+@use "mixins" as *;
+
 .skills {
-  text-align: center;
-  padding: 3rem 1rem;
+  @include section-box;
+  color: #e9d7ff;
 
   h2 {
     font-size: 2rem;
     margin-bottom: 2rem;
   }
 
-  .skills-icons {
+  .skills-columns {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
     gap: 2rem;
+    justify-content: center;
+
+    .skills-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 280px; // largeur fixe desktop
+      flex: 1;
+    }
   }
 
-  .skill-icon {
+  .skill-item {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 3rem;
-    color: #fff;
-    transition: transform 0.3s ease;
-    cursor: pointer;
+    flex-direction: column; // barre en dessous
+    align-items: flex-start;
+    gap: 0.6rem;
 
-    span {
-      margin-top: 0.5rem;
-      font-size: 1rem;
-      color: #ccc;
+    .skill-left {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+
+      .skill-icon {
+        font-size: 2.5rem;
+        color: #fff;
+        cursor: pointer;
+
+        &:hover {
+          transform: scale(1.15);
+        }
+      }
+
+      .skill-name {
+        font-size: 1rem;
+        color: #ccc;
+        white-space: nowrap;
+      }
     }
 
-    &:hover {
-      transform: scale(1.15);
+    .skill-bar {
+      flex: none; // enlève flex:1 pour centrer correctement
+      width: 70%; // largeur fixe
+      margin: 0 auto; // centre la barre
+      height: 8px;
+      background-color: #333;
+      border-radius: 4px;
+      overflow: hidden;
+
+      .skill-progress {
+        height: 100%;
+        background-color: #61dafb;
+        border-radius: 4px;
+        transition: width 1s ease-out;
+      }
     }
   }
 }
+
+/* ===================================================== */
+/* ====================== RESPONSIVE ===================== */
+/* ===================================================== */
+
 @media (max-width: 768px) {
-  .skills{
-    width: 200px;
+  .skills {
+    padding: 2rem 1rem;
     margin-left: auto;
     margin-right: auto;
-  }
 
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .skills-columns {
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+
+      .skills-column {
+        width: 100%;
+        max-width: 320px; // colonnes plus fines
+      }
+    }
+
+    .skill-item {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.8rem;
+
+      .skill-left {
+        width: auto;
+        margin-right: 0;
+        justify-content: center;
+
+        .skill-icon {
+          font-size: 2rem;
+        }
+
+        .skill-name {
+          font-size: 0.85rem;
+        }
+      }
+
+      .skill-bar {
+        width: 70%; // barre centrée
+        margin: 0 auto;
+        height: 7px;
+      }
+    }
+  }
 }

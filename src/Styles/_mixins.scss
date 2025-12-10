@@ -1,0 +1,20 @@
+@mixin section-box {
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(150, 0, 255, 0.25);
+  border-radius: 20px;
+  padding: 3rem 2.5rem;
+  width: 100%;
+  max-width: 1200px;
+  box-shadow: 0 0 40px rgba(140, 0, 255, 0.25);
+  color: #e9d7ff;
+    /* === Responsive inclus dans le mixin === */
+  @media (max-width: 768px) {
+    padding: 2rem 0.8rem; 
+    // ↑ réduit UNIQUEMENT les côtés
+    // ↑ garde un bon espace vertical
+
+    border-radius: 14px;
+    max-width: 90%;
+  }
+}
