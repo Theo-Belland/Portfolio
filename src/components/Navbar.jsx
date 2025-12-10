@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import "../Styles/Navbar.scss";
 
 export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <nav className="navbar">
       <div className="navbar-content">
-        {/* Logo si tu veux en ajouter un */}
         <div className="navbar-logo">
-          <img src="/logo.png" alt="Logo" />
+          {/* <img src="/logo.png" alt="Logo" /> */}
         </div>
 
-        {/* Menu */}
-        <ul className="navbar-links">
+        <ul className={`navbar-links ${isOpen ? "active" : ""}`}>
           <li>
             <a href="#accueil">Accueil</a>
           </li>
@@ -28,6 +28,15 @@ export default function Navbar() {
             <a href="#contact">Contact</a>
           </li>
         </ul>
+
+        <div
+          className={`hamburger ${isOpen ? "open" : ""}`}
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </div>
     </nav>
   );
