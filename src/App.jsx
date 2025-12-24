@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import MaintenancePage from "./pages/MaintenancePage";
 import DashboardAdmin from "./pages/Admin";
 import ManagementProjects from "./pages/managementProject";
+import EditProject from "./pages/EditProject";
 import Footer from "./components/Footer";
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
           <div className="glow"></div>
           <div className="content">
             <Routes>
+              {/* Routes publiques */}
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/maintenance" element={<MaintenancePage />} />
@@ -32,12 +34,22 @@ export default function App() {
                 }
               />
 
-              {/* Gestion des projets séparée */}
+              {/* Gestion des projets */}
               <Route
                 path="/admin/managementProject"
                 element={
                   <ProtectedRoute>
                     <ManagementProjects />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Édition d’un projet */}
+              <Route
+                path="/admin/edit/:id"
+                element={
+                  <ProtectedRoute>
+                    <EditProject />
                   </ProtectedRoute>
                 }
               />

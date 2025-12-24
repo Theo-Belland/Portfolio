@@ -111,14 +111,14 @@ export default function EditProject() {
         {/* Technologies */}
         <div>
           <label>Technologies :</label>
-          <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.5rem" }}>
+          <div className="techno">
             <input
               type="text"
               placeholder="ex: React"
               value={newTech}
               onChange={(e) => setNewTech(e.target.value)}
             />
-            <button type="button" onClick={addTech}>
+            <button className="ajoute" type="button" onClick={addTech}>
               Ajouter
             </button>
           </div>
@@ -159,7 +159,7 @@ export default function EditProject() {
                       position: "absolute",
                       top: 0,
                       right: 0,
-                      background: "red",
+                      background: "none",
                       color: "#fff",
                       border: "none",
                       borderRadius: "50%",
@@ -185,8 +185,8 @@ export default function EditProject() {
           style={{ marginTop: "1rem" }}
         />
 
-        <button type="submit" style={{ marginTop: "1rem" }}>
-          ✅ Enregistrer
+        <button className="ajoute" type="submit" style={{ marginTop: "1rem" }}>
+          Enregistrer
         </button>
       </form>
 

@@ -145,9 +145,9 @@
 @media (max-width: 768px) {
   .contact-container {
     flex-direction: column;
+  }
 
-    .contact-map {
-      height: 220px;
-    }
+  .map-wrapper{
+    height: 400px;
   }
 }

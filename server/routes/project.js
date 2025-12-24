@@ -3,25 +3,21 @@ import fs from "fs";
 import path from "path";
 import multer from "multer";
 import jwt from "jsonwebtoken";
-import fetch from "node-fetch"; // pour GitHub
+import fetch from "node-fetch";
 import { fileURLToPath } from "url";
 
 const router = express.Router();
 
-// --- Déclarer SITE_URL ---
 const SITE_URL =
-  process.env.VITE_SITE_URL || `http://localhost:${process.env.PORT || 5000}`;
+  process.env.SITE_URL || `http://localhost:${process.env.PORT || 5000}`;
 
-// --- Chemins ---
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const serverRoot = path.join(__dirname, ".."); // remonte à /server
+const serverRoot = path.join(__dirname, "..");
 const uploadsPath = path.join(serverRoot, "uploads");
 const dataPath = path.join(serverRoot, "projects.json");
 
-// crée uploads si besoin
 if (!fs.existsSync(uploadsPath)) fs.mkdirSync(uploadsPath);
 
-// --- Multer ---
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadsPath),
   filename: (req, file, cb) => {
@@ -31,7 +27,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// --- Utils ---
 function readProjects() {
   if (!fs.existsSync(dataPath)) return [];
   try {
@@ -45,7 +40,6 @@ function saveProjects(projects) {
   fs.writeFileSync(dataPath, JSON.stringify(projects, null, 2));
 }
 
-// --- Middleware JWT ---
 function verifyToken(req, res, next) {
   const authHeader = req.headers.authorization;
   if (!authHeader) return res.status(401).json({ message: "Token manquant" });
@@ -58,24 +52,27 @@ function verifyToken(req, res, next) {
   });
 }
 
-// ----------------------
+// --- Helpers pour corriger les URLs d'images ---
+function fixImageUrl(img) {
+  if (!img) return "";
+  if (img.startsWith("http://localhost:5000"))
+    return img.replace("http://localhost:5000", SITE_URL);
+  if (img.startsWith("/uploads")) return `${SITE_URL}${img}`;
+  return `${SITE_URL}/uploads/${path.basename(img)}`;
+}
+
 // GET all projects
-// ----------------------
 router.get("/", (req, res) => {
   const projects = readProjects();
   res.json(
     projects.map((p) => ({
       ...p,
-      images: (p.images || []).map(
-        (img) => `${SITE_URL}/uploads/${path.basename(img)}`
-      ),
+      images: (p.images || []).map(fixImageUrl),
     }))
   );
 });
 
-// ----------------------
 // GET project by ID
-// ----------------------
 router.get("/:id", (req, res) => {
   const projects = readProjects();
   const project = projects.find(
@@ -85,15 +82,11 @@ router.get("/:id", (req, res) => {
 
   res.json({
     ...project,
-    images: (project.images || []).map(
-      (img) => `${SITE_URL}/uploads/${path.basename(img)}`
-    ),
+    images: (project.images || []).map(fixImageUrl),
   });
 });
 
-// ----------------------
-// ADD project
-// ----------------------
+// POST project
 router.post("/", verifyToken, upload.array("images", 10), (req, res) => {
   try {
     const { title, description, technologies } = req.body;
@@ -118,9 +111,7 @@ router.post("/", verifyToken, upload.array("images", 10), (req, res) => {
   }
 });
 
-// ----------------------
-// UPDATE project
-// ----------------------
+// PUT project
 router.put("/:id", verifyToken, upload.array("images", 10), (req, res) => {
   try {
     const { id } = req.params;
@@ -137,11 +128,9 @@ router.put("/:id", verifyToken, upload.array("images", 10), (req, res) => {
       ? JSON.parse(technologies)
       : projects[index].technologies;
 
-    // Images
     let images = oldImages ? JSON.parse(oldImages) : [];
-    if (req.files?.length > 0) {
+    if (req.files?.length > 0)
       images = [...images, ...req.files.map((f) => `/uploads/${f.filename}`)];
-    }
     projects[index].images = images;
 
     saveProjects(projects);
@@ -152,9 +141,7 @@ router.put("/:id", verifyToken, upload.array("images", 10), (req, res) => {
   }
 });
 
-// ----------------------
 // DELETE project
-// ----------------------
 router.delete("/:id", verifyToken, (req, res) => {
   const projects = readProjects();
   const newProjects = projects.filter(
@@ -167,13 +154,10 @@ router.delete("/:id", verifyToken, (req, res) => {
   res.json({ message: "Projet supprimé" });
 });
 
-// ----------------------
 // IMPORT GitHub
-// ----------------------
 router.post("/import-github", verifyToken, async (req, res) => {
   try {
-    const username = "Theo-Belland"; // ton pseudo GitHub
-
+    const username = process.env.GITHUB_USERNAME || "Theo-Belland";
     const githubRes = await fetch(
       `https://api.github.com/users/${username}/repos`
     );
@@ -195,14 +179,12 @@ router.post("/import-github", verifyToken, async (req, res) => {
       pushed_at: repo.pushed_at,
     }));
 
-    // Filtrer pour éviter les doublons GitHub
     projects = [
       ...projects.filter((p) => !p.id.toString().startsWith("gh_")),
       ...newProjects,
     ];
 
     saveProjects(projects);
-
     res.json({
       message: "Projets GitHub importés avec succès",
       count: newProjects.length,

@@ -2,37 +2,77 @@
     display: flex;
     flex-direction: column;
     margin-top: 100px;
+    background: rgba(20,20,20,.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(150,0,255,.25);
+    border-radius: 20px;
+    width: 50%;
+    max-width: 800px;
+    box-shadow: 0 0 40px #8c00ff40;
+    color: #e9d7ff;
+    h2{
+        margin-bottom: 10px;
+        color: #a855f7;
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+    }
     form{
         display: flex;
         flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+        width: 500px;
         input{
-            margin-bottom: 10px;
-            border-radius: 5px;
-            border: none;
-            width: 500px;
-            height: 30px;
-            text-align: center;
+            padding: .9rem 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(192,132,252,.6);
+            background: rgba(0,0,0,.4);
+            color: #fff;
+            font-size: 1rem;
+            box-shadow: 0 0 8px #c084fc40;
+            margin-bottom: 20px;
+        }
+        input[type=file]{
+            padding: .9rem 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(192,132,252,.6);
+            background: rgba(0,0,0,.4);
+            color: #fff;
+            font-size: 1rem;
+            box-shadow: 0 0 8px #c084fc40;
+            margin-bottom: 20px;
+        }
+        .ajoute{
+            padding: 0.8rem 0.9rem;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #fff;
+            border: 1px solid rgba(150,0,255,.5);
+            transition: .2s;
+            background: rgba(150,0,255,.5);
+            transform: translateY(-2px);
+            width: 100px;
+            margin-left: auto;
+            margin-right: auto;
         }
         textarea{
-            width: 500px;
-            height: 50px;
-            border: none;
-            border-radius: 5px;
-            margin-bottom: 10px;
+            padding: .9rem 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(192,132,252,.6);
+            background: rgba(0,0,0,.4);
+            color: #fff;
+            font-size: 1rem;
+            box-shadow: 0 0 8px #c084fc40;
+            margin-bottom: 20px;
+        }
+        .techno{
+            margin-top: 0.5rem;
         }
         label{
             margin-left: auto;
             margin-right: auto;
         }
-        input[type=file] {
-            width: 500px;
-            height: 50px;
-            color: #222245;
-            padding: 8px;
-            background-color: #fff;
-            border: none;
-            }
-
             input[type=file]:focus {
             outline: 2px dashed #222245;
             outline-offset: 2px;
