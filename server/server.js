@@ -9,6 +9,8 @@ import { fileURLToPath } from "url";
 import contactRouter from "./routes/contact.js";
 import projectRouter from "./routes/project.js";
 import adminRouter from "./routes/admin.js";
+import visiteRouter from "./routes/visite.js";
+import technologyRouter from "./routes/technology.js";
 
 dotenv.config();
 
@@ -25,26 +27,23 @@ const configPath = path.join(__dirname, "config.json");
 const uploadPath = path.join(__dirname, "uploads");
 
 // --- MIDDLEWARES ---
-app.use(
-  cors({
-    origin: "*", // en dev tu peux mettre http://localhost:5174
-  })
-);
-
+app.use(cors({ origin: "*" })); // en dev tu peux mettre http://localhost:5174
 app.use(express.json());
 app.use("/uploads", express.static(uploadPath));
 
 // --- ROUTES API ---
+// ⚡ Important : toutes les routes API **avant** le fallback frontend
 app.use("/api/contact", contactRouter);
 app.use("/api/projects", projectRouter);
 app.use("/api/admin", adminRouter);
+app.use("/api/visites", visiteRouter);
+app.use("/api/technologies", technologyRouter);
 
 // --- MODE MAINTENANCE ---
 app.get("/api/config/maintenance", (req, res) => {
   if (!fs.existsSync(configPath)) {
     return res.status(500).json({ message: "config.json introuvable" });
   }
-
   try {
     const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
     res.json({ maintenanceMode: config.maintenanceMode });
@@ -101,7 +100,7 @@ const isProd = process.env.NODE_ENV === "production";
 if (isProd) {
   app.use(express.static(distPath));
 
-  // fallback pour React Router
+  // ⚠️ fallback React Router : doit être **à la fin**
   app.get(/^\/(?!api).*/, (req, res) => {
     res.sendFile(path.join(distPath, "index.html"));
   });
@@ -117,7 +116,5 @@ app.listen(PORT, () => {
   console.log(`📁 Uploads servis depuis : ${uploadPath}`);
   if (isProd) {
     console.log(`🌐 Frontend servi depuis : ${distPath}`);
-  } else {
-    console.log("🌐 Frontend en dev sur Vite (localhost:5174)");
   }
 });

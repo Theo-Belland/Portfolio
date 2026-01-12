@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import ProjectSlider from "../components/ProjectSlider";
 import { useApp } from "../context/AppContext";
+import Modal from "../components/Modal";
 import "../Styles/managementProj.scss";
 
 export default function ManagementProjects() {
   const { user } = useApp();
   const [projects, setProjects] = useState([]);
+  const [activeProject, setActiveProject] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [importStatus, setImportStatus] = useState("");
   const navigate = useNavigate();
-  const API_URL = import.meta.env.VITE_API_URL;
+  const API_URL = import.meta.env.VITE_API_URL || "https://theobelland.fr/api";
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [openSubMenu, setOpenSubMenu] = useState(null);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -32,100 +36,149 @@ export default function ManagementProjects() {
     fetchProjects();
   }, [API_URL]);
 
-  // ------------------------------
-  // Importer projets depuis GitHub
-  // ------------------------------
-  const importFromGithub = async () => {
+  const handleImportGithub = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setImportStatus("❌ Non authentifié");
+      return;
+    }
+
+    setImportStatus("⏳ Import en cours...");
     try {
-      const res = await fetch(
-        "https://api.github.com/repos/Theo-Belland/portfolio/contents/server/projects.json"
-      );
-      if (!res.ok) throw new Error("Fichier GitHub introuvable");
-      const ghData = await res.json();
-      const decoded = JSON.parse(atob(ghData.content));
+      const res = await fetch(`${API_URL}/projects/import-github`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
 
-      // Filtrer pour éviter les doublons (basé sur l'id)
-      const newProjects = decoded.filter(
-        (p) => !projects.some((existing) => existing.id === p.id)
-      );
-
-      if (newProjects.length === 0) {
-        alert("Aucun nouveau projet à importer.");
-        return;
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.message || "Erreur lors de l'import");
       }
 
-      setProjects((prev) => [...prev, ...newProjects]);
-      alert(`${newProjects.length} projet(s) importé(s) depuis GitHub !`);
+      const data = await res.json();
+      setImportStatus(`✅ ${data.message || "Projets importés !"}`);
+
+      // Rafraîchir la liste des projets après 1 seconde
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
     } catch (err) {
-      console.error("Erreur import GitHub :", err);
-      alert("Impossible d’importer les projets depuis GitHub");
+      console.error(err);
+      setImportStatus(`❌ ${err.message}`);
     }
   };
 
-  if (loading) return <p>Chargement des projets...</p>;
+  if (loading) return <p className="loading">Chargement des projets...</p>;
 
   return (
-    <div className="projects-admin">
-      <div className="sidebar">
+    <div className="projects-admin-page">
+      <aside className={`admin-sidebar ${sidebarOpen ? "open" : ""}`}>
         <h2>Admin</h2>
-        <ul>
-          <li>
-            <button onClick={() => navigate("/admin")}>Dashboard</button>
-          </li>
-          <li>
-            <button onClick={() => navigate("/admin/managementProject")}>
-              Projets
-            </button>
-          </li>
-          <li>
-            <button onClick={() => navigate("/admin/users")}>
-              Utilisateurs
-            </button>
-          </li>
-        </ul>
-      </div>
+        <nav>
+          <ul className="menu-list">
+            <li onClick={() => navigate("/admin")}>📊 Dashboard</li>
 
-      <div className="main-content">
-        <h2>Gestion des projets</h2>
+            <li>
+              <div
+                className="menu-item"
+                onClick={() =>
+                  setOpenSubMenu(openSubMenu === "projects" ? null : "projects")
+                }
+              >
+                📁 Projets
+              </div>
+              {openSubMenu === "projects" && (
+                <ul className="submenu">
+                  <li onClick={() => navigate("/admin/managementProject")}>
+                    Tous les projets
+                  </li>
+                  <li onClick={() => navigate("/admin/addProject")}>
+                    Ajouter un projet
+                  </li>
+                </ul>
+              )}
+            </li>
 
-        {/* Bouton Import GitHub */}
-        <button
-          onClick={importFromGithub}
-          style={{
-            marginBottom: "1rem",
-            padding: "0.5rem 1rem",
-            borderRadius: "8px",
-            border: "1px solid #a855f7",
-            backgroundColor: "#000",
-            color: "#fff",
-            cursor: "pointer",
-          }}
-        >
-          Importer depuis GitHub
-        </button>
+            <li onClick={() => navigate("/admin/technologies")}>
+              🔧 Technologies
+            </li>
 
-        <div className="projects-grid-admin">
+            <li>
+              <div
+                className="menu-item"
+                onClick={() =>
+                  setOpenSubMenu(openSubMenu === "users" ? null : "users")
+                }
+              >
+                👥 Utilisateurs
+              </div>
+              {openSubMenu === "users" && (
+                <ul className="submenu">
+                  <li onClick={() => navigate("/admin/users")}>Liste</li>
+                  <li onClick={() => navigate("/admin/addUser")}>Ajouter</li>
+                </ul>
+              )}
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      {/* MOBILE HAMBURGER */}
+      <button
+        className="hamburger"
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+      >
+        ☰
+      </button>
+
+      {/* Main Content */}
+      <section className="main-content">
+        <div className="header-section">
+          <h2>Gestion des projets</h2>
+          <button className="github-import-btn" onClick={handleImportGithub}>
+            🔄 Importer depuis GitHub
+          </button>
+        </div>
+
+        {importStatus && <div className="import-status">{importStatus}</div>}
+
+        <div className="projects-grid">
           {projects.map((p) => (
-            <div key={p.id} className="project-card-admin">
-              <ProjectSlider images={p.images} />
-              <div className="project-info">
-                <h3>{p.title}</h3>
-                <p>{p.description}</p>
-                {p.technologies.length > 0 && (
-                  <div>
-                    <strong>Technos :</strong> {p.technologies.join(", ")}
-                  </div>
-                )}
+            <div key={p.id} className="project-card">
+              <div
+                className="project-image"
+                onClick={() => setActiveProject(p)}
+              >
+                <img
+                  src={
+                    p.images?.[0] ||
+                    "https://via.placeholder.com/400x250?text=Projet"
+                  }
+                  alt={p.title}
+                />
               </div>
               <div className="project-actions">
-                <button onClick={() => navigate(`/admin/edit/${p.id}`)}>
-                  Modifier
+                <button
+                  className="edit-btn"
+                  onClick={() => navigate(`/admin/edit/${p.id}`)}
+                >
+                  ✏️ Modifier
                 </button>
               </div>
             </div>
           ))}
         </div>
-      </div>
+      </section>
+
+      {activeProject && (
+        <Modal
+          project={activeProject}
+          closeModal={() => setActiveProject(null)}
+        />
+      )}
     </div>
   );
 }

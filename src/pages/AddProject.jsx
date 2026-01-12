@@ -1,95 +1,79 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import "../Styles/add-project.scss";
 
-export default function EditProject() {
-  const { id } = useParams();
+export default function AddProject() {
   const navigate = useNavigate();
-  const [project, setProject] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [technos, setTechnos] = useState([]);
-  const [newTech, setNewTech] = useState("");
+  const [selectedTechnos, setSelectedTechnos] = useState([]);
+  const [availableTechnos, setAvailableTechnos] = useState([]);
   const [files, setFiles] = useState([]);
   const [status, setStatus] = useState("");
-  const token = localStorage.getItem("token");
-  const API_URL = import.meta.env.VITE_API_URL; // ex: https://theobelland.fr/api
 
-  // Récupérer le projet
+  const token = localStorage.getItem("token");
+  const API_URL = import.meta.env.VITE_API_URL || "https://theobelland.fr/api";
+
+  // Récupérer la liste des technologies disponibles
   useEffect(() => {
-    const fetchProject = async () => {
+    const fetchTechnologies = async () => {
       try {
-        const res = await fetch(`${API_URL}/projects`);
-        const data = await res.json();
-        const proj = data.find((p) => p.id === Number(id));
-        if (!proj) setStatus("❌ Projet introuvable.");
-        else {
-          setProject(proj);
-          setTitle(proj.title);
-          setDescription(proj.description);
-          setTechnos(proj.technologies || []);
+        const res = await fetch(`${API_URL}/technologies`);
+        if (res.ok) {
+          const data = await res.json();
+          setAvailableTechnos(data);
         }
       } catch (err) {
-        console.error(err);
-        setStatus("⚠️ Impossible de charger le projet.");
+        console.error("Erreur lors du chargement des technologies:", err);
       }
     };
-    fetchProject();
-  }, [id, API_URL]);
+    fetchTechnologies();
+  }, [API_URL]);
 
-  // Gestion des fichiers
   const handleFilesChange = (e) => setFiles(Array.from(e.target.files));
 
-  // Ajouter une techno
-  const addTech = () => {
-    if (newTech.trim() && !technos.includes(newTech.trim())) {
-      setTechnos([...technos, newTech.trim()]);
-      setNewTech("");
+  const toggleTechno = (tech) => {
+    if (selectedTechnos.includes(tech)) {
+      setSelectedTechnos(selectedTechnos.filter((t) => t !== tech));
+    } else {
+      setSelectedTechnos([...selectedTechnos, tech]);
     }
   };
 
-  // Supprimer une techno
-  const removeTech = (tech) => setTechnos(technos.filter((t) => t !== tech));
-
-  // Soumission du formulaire
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus("⏳ Mise à jour en cours...");
+    setStatus("⏳ Création en cours...");
 
     try {
       const formData = new FormData();
       formData.append("title", title);
       formData.append("description", description);
-      formData.append("technologies", JSON.stringify(technos));
+      formData.append("technologies", JSON.stringify(selectedTechnos));
       files.forEach((file) => formData.append("images", file));
 
-      const res = await fetch(`${API_URL}/projects/${id}`, {
-        method: "PUT",
-        headers: { Authorization: `Bearer ${token}` }, // PAS de Content-Type !
+      const res = await fetch(`${API_URL}/projects`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
         body: formData,
       });
 
       if (!res.ok) {
         const errorData = await res.json().catch(() => ({}));
-        throw new Error(errorData.message || "Erreur lors de la mise à jour");
+        throw new Error(errorData.message || "Erreur lors de la création");
       }
 
-      setStatus("✅ Projet mis à jour !");
-      setTimeout(() => navigate("/admin"), 1200);
+      setStatus("✅ Projet créé !");
+      setTimeout(() => navigate("/admin/managementProject"), 1200);
     } catch (err) {
       console.error(err);
       setStatus(`❌ ${err.message}`);
     }
   };
 
-  if (!project) return <p>{status || "Chargement..."}</p>;
-
   return (
     <div className="edit-project">
-      <h2>Modifier le projet</h2>
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", gap: "1rem", maxWidth: "500px" }}
-      >
+      <h2>Ajouter un projet</h2>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           value={title}
@@ -104,57 +88,60 @@ export default function EditProject() {
           required
         />
 
-        {/* Gestion des technologies */}
+        {/* Sélection des technologies */}
         <div>
           <label>Technologies utilisées :</label>
-          <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.5rem" }}>
-            <input
-              type="text"
-              placeholder="ex: React"
-              value={newTech}
-              onChange={(e) => setNewTech(e.target.value)}
-            />
-            <button type="button" onClick={addTech}>
-              Ajouter
-            </button>
+          <div className="technologies-selector">
+            {availableTechnos.length === 0 ? (
+              <p>
+                Aucune technologie disponible. Ajoutez-en dans la gestion des
+                technologies.
+              </p>
+            ) : (
+              <div className="tech-checkboxes">
+                {availableTechnos.map((tech, i) => (
+                  <label key={i} className="tech-checkbox">
+                    <input
+                      type="checkbox"
+                      checked={selectedTechnos.includes(tech)}
+                      onChange={() => toggleTechno(tech)}
+                    />
+                    <span>{tech}</span>
+                  </label>
+                ))}
+              </div>
+            )}
           </div>
-          <div style={{ marginTop: "0.5rem", display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-            {technos.map((tech, i) => (
-              <span
-                key={i}
-                style={{
-                  background: "#eee",
-                  borderRadius: "15px",
-                  padding: "0.3rem 0.8rem",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.3rem",
-                }}
-              >
-                {tech}
-                <button
-                  type="button"
-                  onClick={() => removeTech(tech)}
-                  style={{ border: "none", background: "transparent", color: "#888", cursor: "pointer" }}
-                >
-                  ✕
-                </button>
-              </span>
-            ))}
-          </div>
+
+          {selectedTechnos.length > 0 && (
+            <div className="selected-technos">
+              <strong>Sélectionnées :</strong>
+              <div className="tech-tags">
+                {selectedTechnos.map((tech, i) => (
+                  <span key={i} className="tech-tag">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
-        <input type="file" accept="image/*" multiple onChange={handleFilesChange} />
+        {/* Images */}
+        <input
+          type="file"
+          accept="image/*"
+          multiple
+          onChange={handleFilesChange}
+          style={{ marginTop: "1rem" }}
+        />
 
-        <button
-          type="submit"
-          style={{ background: "#333", color: "#fff", padding: "0.5rem", borderRadius: "8px" }}
-        >
-          ✅ Enregistrer
+        <button className="ajoute" type="submit" style={{ marginTop: "1rem" }}>
+          Créer le projet
         </button>
       </form>
 
-      {status && <p>{status}</p>}
+      {status && <p style={{ marginTop: "0.5rem" }}>{status}</p>}
     </div>
   );
 }

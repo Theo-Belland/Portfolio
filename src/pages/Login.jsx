@@ -20,7 +20,8 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const API_URL = import.meta.env.VITE_API_URL;
+      const API_URL =
+        import.meta.env.VITE_API_URL || "https://theobelland.fr/api";
 
       const res = await fetch(`${API_URL}/admin/login`, {
         method: "POST",

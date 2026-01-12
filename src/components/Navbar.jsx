@@ -7,8 +7,13 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-content">
-        <div className="navbar-logo">
-          {/* <img src="/logo.png" alt="Logo" /> */}
+        <div
+          className={`hamburger ${isOpen ? "open" : ""}`}
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
 
         <ul className={`navbar-links ${isOpen ? "active" : ""}`}>
@@ -28,15 +33,6 @@ export default function Navbar() {
             <a href="#contact">Contact</a>
           </li>
         </ul>
-
-        <div
-          className={`hamburger ${isOpen ? "open" : ""}`}
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
       </div>
     </nav>
   );

@@ -1,0 +1,171 @@
+/* ========== PAGE GESTION TECHNOLOGIES ========== */
+.manage-technologies-page {
+  margin-bottom: 150px;
+}
+
+.tech-add-form {
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: rgba(20, 20, 20, 0.9);
+  border-radius: 16px;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  box-shadow: 0 4px 20px rgba(168, 85, 247, 0.2);
+
+  h3 {
+    color: #c084fc;
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+  }
+
+  form {
+    display: flex;
+    gap: 1rem;
+    max-width: 700px;
+    align-items: flex-end;
+
+    .form-group {
+      flex: 1;
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #c084fc;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      input {
+        width: 100%;
+        padding: 1rem 1.2rem;
+        background: rgba(15, 15, 25, 0.6);
+        border: 2px solid rgba(168, 85, 247, 0.3);
+        border-radius: 12px;
+        color: white;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+
+        &:focus {
+          outline: none;
+          border-color: #a855f7;
+          box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
+          background: rgba(15, 15, 25, 0.8);
+        }
+      }
+    }
+
+    button {
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5);
+      }
+
+      &:active {
+        transform: translateY(-1px);
+      }
+    }
+  }
+}
+
+.tech-list {
+  margin-bottom: 100px;
+
+  ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 1.5rem;
+      background: rgba(168, 85, 247, 0.08);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 12px;
+      color: white;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgba(168, 85, 247, 0.15);
+        border-color: rgba(168, 85, 247, 0.5);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(168, 85, 247, 0.2);
+      }
+
+      .tech-info {
+        flex: 1;
+
+        .tech-name {
+          color: #fff;
+          font-weight: 600;
+          font-size: 1.05rem;
+          display: block;
+          margin-bottom: 0.3rem;
+        }
+
+        .tech-icon {
+          color: #c084fc;
+          font-size: 0.85rem;
+          opacity: 0.8;
+        }
+      }
+
+      button {
+        padding: 0.6rem 1.2rem;
+        background: rgba(239, 68, 68, 0.1);
+        color: #ef4444;
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: rgba(239, 68, 68, 0.2);
+          border-color: #ef4444;
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+}
+
+.message {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  background: rgba(168, 85, 247, 0.2);
+  border: 1px solid #a855f7;
+  border-radius: 12px;
+  color: white;
+  text-align: center;
+  font-weight: 500;
+}
+
+@media (max-width: 1024px) {
+  .tech-list ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .tech-list ul {
+    grid-template-columns: 1fr;
+  }
+}

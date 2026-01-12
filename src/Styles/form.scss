@@ -143,11 +143,41 @@
 
 /* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
-  .contact-container {
-    flex-direction: column;
-  }
+  .contact-section {
+    margin-left: auto;
+    margin-right: auto;
 
-  .map-wrapper{
-    height: 400px;
+    .contact-container {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .contact-left,
+    .contact-form {
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .contact-info {
+      text-align: center;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+
+      .info-line {
+        justify-content: center;
+      }
+    }
+
+    .contact-map {
+      text-align: center;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .map-wrapper {
+      height: 400px;
+    }
   }
 }

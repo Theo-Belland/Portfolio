@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import TechBadge from "../components/TechBadge.jsx";
 import "../Styles/add-project.scss";
 
 export default function EditProject() {
@@ -10,17 +9,31 @@ export default function EditProject() {
   const [project, setProject] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [technos, setTechnos] = useState([]);
-  const [newTech, setNewTech] = useState("");
+  const [selectedTechnos, setSelectedTechnos] = useState([]);
+  const [availableTechnos, setAvailableTechnos] = useState([]);
   const [files, setFiles] = useState([]);
   const [status, setStatus] = useState("");
 
   const token = localStorage.getItem("token");
-  const API_URL = import.meta.env.VITE_API_URL;
+  const API_URL = import.meta.env.VITE_API_URL || "https://theobelland.fr/api";
 
-  // ------------------------------
+  // Récupérer la liste des technologies disponibles
+  useEffect(() => {
+    const fetchTechnologies = async () => {
+      try {
+        const res = await fetch(`${API_URL}/technologies`);
+        if (res.ok) {
+          const data = await res.json();
+          setAvailableTechnos(data);
+        }
+      } catch (err) {
+        console.error("Erreur lors du chargement des technologies:", err);
+      }
+    };
+    fetchTechnologies();
+  }, [API_URL]);
+
   // Récupérer le projet par ID
-  // ------------------------------
   useEffect(() => {
     const fetchProject = async () => {
       try {
@@ -30,7 +43,7 @@ export default function EditProject() {
         setProject(data);
         setTitle(data.title);
         setDescription(data.description);
-        setTechnos(data.technologies || []);
+        setSelectedTechnos(data.technologies || []);
       } catch (err) {
         console.error(err);
         setStatus("❌ Projet introuvable.");
@@ -41,14 +54,13 @@ export default function EditProject() {
 
   const handleFilesChange = (e) => setFiles(Array.from(e.target.files));
 
-  const addTech = () => {
-    if (newTech.trim() && !technos.includes(newTech.trim())) {
-      setTechnos([...technos, newTech.trim()]);
-      setNewTech("");
+  const toggleTechno = (tech) => {
+    if (selectedTechnos.includes(tech)) {
+      setSelectedTechnos(selectedTechnos.filter((t) => t !== tech));
+    } else {
+      setSelectedTechnos([...selectedTechnos, tech]);
     }
   };
-
-  const removeTech = (tech) => setTechnos(technos.filter((t) => t !== tech));
 
   const removeImage = (img) => {
     setProject({
@@ -65,7 +77,7 @@ export default function EditProject() {
       const formData = new FormData();
       formData.append("title", title);
       formData.append("description", description);
-      formData.append("technologies", JSON.stringify(technos));
+      formData.append("technologies", JSON.stringify(selectedTechnos));
       formData.append("oldImages", JSON.stringify(project.images || []));
       files.forEach((file) => formData.append("images", file));
 
@@ -111,29 +123,40 @@ export default function EditProject() {
         {/* Technologies */}
         <div>
           <label>Technologies :</label>
-          <div className="techno">
-            <input
-              type="text"
-              placeholder="ex: React"
-              value={newTech}
-              onChange={(e) => setNewTech(e.target.value)}
-            />
-            <button className="ajoute" type="button" onClick={addTech}>
-              Ajouter
-            </button>
+          <div className="technologies-selector">
+            {availableTechnos.length === 0 ? (
+              <p>
+                Aucune technologie disponible. Ajoutez-en dans la gestion des
+                technologies.
+              </p>
+            ) : (
+              <div className="tech-checkboxes">
+                {availableTechnos.map((tech, i) => (
+                  <label key={i} className="tech-checkbox">
+                    <input
+                      type="checkbox"
+                      checked={selectedTechnos.includes(tech)}
+                      onChange={() => toggleTechno(tech)}
+                    />
+                    <span>{tech}</span>
+                  </label>
+                ))}
+              </div>
+            )}
           </div>
-          <div
-            style={{
-              marginTop: "0.5rem",
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "0.5rem",
-            }}
-          >
-            {technos.map((tech, i) => (
-              <TechBadge key={i} tech={tech} onRemove={removeTech} />
-            ))}
-          </div>
+
+          {selectedTechnos.length > 0 && (
+            <div className="selected-technos">
+              <strong>Sélectionnées :</strong>
+              <div className="tech-tags">
+                {selectedTechnos.map((tech, i) => (
+                  <span key={i} className="tech-tag">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Images existantes */}

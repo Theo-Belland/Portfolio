@@ -177,3 +177,41 @@
     transform: translateY(0);
   }
 }
+
+/* ========================================================= */
+/* LEGAL MODAL SPECIFIC STYLES */
+/* ========================================================= */
+
+.legal-modal {
+  max-width: 700px;
+
+  .legal-content {
+    h3 {
+      color: #c084fc;
+      font-size: 1.2rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.8rem;
+      font-weight: 600;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      line-height: 1.7;
+      color: #d1d5db;
+    }
+
+    ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+
+      li {
+        margin-bottom: 0.5rem;
+        color: #d1d5db;
+      }
+    }
+
+    strong {
+      color: #e9d5ff;
+    }
+  }
+}

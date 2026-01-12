@@ -6,7 +6,7 @@ export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("");
 
-  const API_URL = import.meta.env.VITE_API_URL;
+  const API_URL = import.meta.env.VITE_API_URL || "https://theobelland.fr/api";
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });

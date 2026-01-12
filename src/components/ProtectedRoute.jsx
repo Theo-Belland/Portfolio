@@ -9,7 +9,8 @@ export default function ProtectedRoute({ children }) {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const API_URL = import.meta.env.VITE_API_URL;
+    const API_URL =
+      import.meta.env.VITE_API_URL || "https://theobelland.fr/api";
 
     if (!token) {
       setLoading(false);
