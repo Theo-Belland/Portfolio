@@ -9,6 +9,7 @@ Portfolio personnel développé avec React + Vite, présentant mes projets et co
 ## ✨ Fonctionnalités
 
 ### Frontend Public
+
 - 🎨 Design moderne avec animations fluides
 - 📱 Responsive (mobile, tablette, desktop)
 - 🔄 Loader animé au démarrage
@@ -18,6 +19,7 @@ Portfolio personnel développé avec React + Vite, présentant mes projets et co
 - 📧 Formulaire de contact
 
 ### Panel Admin
+
 - 🔐 Authentification sécurisée (JWT)
 - ✏️ Gestion complète des projets (CRUD)
 - 🔧 Gestion des technologies
@@ -28,6 +30,7 @@ Portfolio personnel développé avec React + Vite, présentant mes projets et co
 ## 🛠️ Stack Technique
 
 ### Frontend
+
 - **Framework** : React 18
 - **Build Tool** : Vite 4.5
 - **Routing** : React Router DOM
@@ -36,6 +39,7 @@ Portfolio personnel développé avec React + Vite, présentant mes projets et co
 - **Slider** : Swiper
 
 ### Backend
+
 - **Runtime** : Node.js + Express
 - **Base de données** : JSON (fichiers)
 - **Upload** : Multer
@@ -44,6 +48,7 @@ Portfolio personnel développé avec React + Vite, présentant mes projets et co
 - **Process Manager** : PM2
 
 ### Déploiement
+
 - **Hébergement** : VPS Linux
 - **Serveur Web** : Nginx
 - **Domain** : theobelland.fr
@@ -52,10 +57,12 @@ Portfolio personnel développé avec React + Vite, présentant mes projets et co
 ## 📦 Installation
 
 ### Prérequis
+
 - Node.js >= 16
 - npm ou yarn
 
 ### Frontend
+
 ```bash
 # Cloner le repository
 git clone https://github.com/votre-username/portfolio-vite.git
@@ -75,6 +82,7 @@ npm run build
 ```
 
 ### Backend
+
 ```bash
 # Aller dans le dossier serveur
 cd server
@@ -136,11 +144,13 @@ portfolio-vite/
 ## 🔧 Configuration
 
 ### Variables d'environnement Frontend (.env)
+
 ```env
 VITE_API_URL=https://theobelland.fr/api
 ```
 
 ### Variables d'environnement Backend (server/.env)
+
 ```env
 PORT=5000
 JWT_SECRET=votre_secret_jwt_securise
@@ -150,12 +160,14 @@ GITHUB_TOKEN=ghp_votre_token_github
 ## 📡 API Endpoints
 
 ### Publics
+
 - `GET /api/projects` - Liste des projets
 - `GET /api/technologies` - Liste des technologies
 - `POST /api/contact` - Envoyer un message
 - `POST /api/visite` - Enregistrer une visite
 
 ### Admin (Auth requise)
+
 - `POST /api/admin/login` - Connexion admin
 - `POST /api/projects` - Créer un projet
 - `PUT /api/projects/:id` - Modifier un projet
@@ -187,6 +199,7 @@ Voir [DEPLOYMENT.md](./DEPLOYMENT.md) pour les instructions détaillées de dép
 ## 🤝 Contribution
 
 Les contributions sont les bienvenues ! N'hésitez pas à :
+
 1. Fork le projet
 2. Créer une branche (`git checkout -b feature/amelioration`)
 3. Commit vos changements (`git commit -m 'Ajout fonctionnalité'`)
@@ -200,6 +213,7 @@ Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE) pour plus de
 ## 👤 Auteur
 
 **Théo Belland**
+
 - Website : [theobelland.fr](https://theobelland.fr)
 - GitHub : [@votre-username](https://github.com/votre-username)
 - LinkedIn : [Théo Belland](https://linkedin.com/in/votre-profil)
