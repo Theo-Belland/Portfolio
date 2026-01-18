@@ -49,7 +49,13 @@ export default function Modal({ project, closeModal }) {
             >
               {project.images.map((src, i) => (
                 <SwiperSlide key={i}>
-                  <img src={fixImageUrl(src)} alt={`Slide ${i}`} />
+                  <img
+                    src={fixImageUrl(src)}
+                    alt={`Slide ${i}`}
+                    loading="lazy"
+                    width="600"
+                    height="400"
+                  />
                 </SwiperSlide>
               ))}
             </Swiper>

@@ -127,16 +127,15 @@ export default function AddProject() {
           )}
         </div>
 
-        {/* Images */}
+        {/* Upload fichiers */}
         <input
           type="file"
           accept="image/*"
           multiple
           onChange={handleFilesChange}
-          style={{ marginTop: "1rem" }}
         />
 
-        <button className="ajoute" type="submit" style={{ marginTop: "1rem" }}>
+        <button className="ajoute" type="submit">
           Créer le projet
         </button>
       </form>

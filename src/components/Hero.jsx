@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import profilImg from "../assets/profil.jpg";
+import profilImg from "../assets/profil.webp";
 import "../Styles/presentation.scss";
 
 export default function Hero() {
@@ -47,7 +47,13 @@ export default function Hero() {
         </p>
         <div className="colonne">
           <div>
-            <img className="img img-rond" src={profilImg} alt="photo-profil" />
+            <img
+              className="img img-rond"
+              src={profilImg}
+              alt="photo-profil"
+              width="160"
+              height="160"
+            />
           </div>
           <div className="max-width">
             <h2>Présentation</h2>

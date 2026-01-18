@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "./Modal";
 import "../Styles/projects.scss";
+import placeholderImg from "../assets/placeholder.webp";
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
@@ -21,10 +22,14 @@ export default function Projects() {
         ...p,
         images: (p.images || []).map((img) => {
           if (!img) return "";
+          // Si c'est déjà une URL complète (screenshot API), la garder telle quelle
           if (img.startsWith("http://") || img.startsWith("https://"))
             return img;
-          if (img.startsWith("/uploads/")) return `${API_URL}${img}`;
-          return `${API_URL}/uploads/${img}`;
+          // Si c'est un chemin /uploads/, ajouter le domaine
+          if (img.startsWith("/uploads/"))
+            return `${API_URL.replace("/api", "")}${img}`;
+          // Sinon, construire le chemin complet
+          return `${API_URL.replace("/api", "")}/uploads/${img}`;
         }),
         technologies: p.technologies || [],
       }));
@@ -66,11 +71,11 @@ export default function Projects() {
           >
             <div className="project-image-wrapper">
               <img
-                src={
-                  proj.images?.[0] ||
-                  "https://via.placeholder.com/400x250?text=Projet"
-                }
+                src={proj.images?.[0] || placeholderImg}
                 alt={proj.title}
+                loading="lazy"
+                width="400"
+                height="250"
               />
             </div>
             <h3>{proj.title}</h3>

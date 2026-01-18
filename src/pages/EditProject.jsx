@@ -12,6 +12,7 @@ export default function EditProject() {
   const [selectedTechnos, setSelectedTechnos] = useState([]);
   const [availableTechnos, setAvailableTechnos] = useState([]);
   const [files, setFiles] = useState([]);
+  const [imageMode, setImageMode] = useState("keep"); // "keep" ou "upload"
   const [status, setStatus] = useState("");
 
   const token = localStorage.getItem("token");
@@ -78,8 +79,14 @@ export default function EditProject() {
       formData.append("title", title);
       formData.append("description", description);
       formData.append("technologies", JSON.stringify(selectedTechnos));
-      formData.append("oldImages", JSON.stringify(project.images || []));
-      files.forEach((file) => formData.append("images", file));
+
+      if (imageMode === "keep") {
+        // Garder les anciennes images
+        formData.append("oldImages", JSON.stringify(project.images || []));
+      } else if (imageMode === "upload") {
+        // Remplacer par des nouvelles images uploadées
+        files.forEach((file) => formData.append("images", file));
+      }
 
       const res = await fetch(`${API_URL}/projects/${id}`, {
         method: "PUT",
@@ -159,10 +166,31 @@ export default function EditProject() {
           )}
         </div>
 
+        {/* Mode de gestion des images */}
+        <div className="image-mode-selector">
+          <label>Gestion des images :</label>
+          <div className="mode-buttons">
+            <button
+              type="button"
+              className={imageMode === "keep" ? "active" : ""}
+              onClick={() => setImageMode("keep")}
+            >
+              ✅ Garder existantes
+            </button>
+            <button
+              type="button"
+              className={imageMode === "upload" ? "active" : ""}
+              onClick={() => setImageMode("upload")}
+            >
+              📤 Remplacer par upload
+            </button>
+          </div>
+        </div>
+
         {/* Images existantes */}
-        {project.images?.length > 0 && (
+        {imageMode === "keep" && project.images?.length > 0 && (
           <div style={{ marginTop: "1rem" }}>
-            <label>Images existantes :</label>
+            <label>Images actuelles ({project.images.length}) :</label>
             <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
               {project.images.map((img, i) => (
                 <div key={i} style={{ position: "relative" }}>
@@ -173,6 +201,7 @@ export default function EditProject() {
                       width: "100px",
                       height: "100px",
                       objectFit: "cover",
+                      borderRadius: "8px",
                     }}
                   />
                   <button
@@ -180,15 +209,16 @@ export default function EditProject() {
                     onClick={() => removeImage(img)}
                     style={{
                       position: "absolute",
-                      top: 0,
-                      right: 0,
-                      background: "none",
+                      top: "5px",
+                      right: "5px",
+                      background: "rgba(239, 68, 68, 0.9)",
                       color: "#fff",
                       border: "none",
                       borderRadius: "50%",
-                      width: "20px",
-                      height: "20px",
+                      width: "24px",
+                      height: "24px",
                       cursor: "pointer",
+                      fontWeight: "bold",
                     }}
                   >
                     ✕
@@ -199,17 +229,18 @@ export default function EditProject() {
           </div>
         )}
 
-        {/* Ajouter nouvelles images */}
-        <input
-          type="file"
-          accept="image/*"
-          multiple
-          onChange={handleFilesChange}
-          style={{ marginTop: "1rem" }}
-        />
+        {/* Upload nouvelles images */}
+        {imageMode === "upload" && (
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={handleFilesChange}
+          />
+        )}
 
-        <button className="ajoute" type="submit" style={{ marginTop: "1rem" }}>
-          Enregistrer
+        <button className="ajoute" type="submit">
+          Mettre à jour
         </button>
       </form>
 

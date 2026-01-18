@@ -178,6 +178,177 @@
       }
     }
 
+    // Mode sélection images
+    .image-mode-selector {
+      margin-top: 1rem;
+
+      label {
+        display: block;
+        margin-bottom: 0.8rem;
+        color: #c084fc;
+        font-weight: 600;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .mode-buttons {
+        display: flex;
+        gap: 1rem;
+
+        button {
+          flex: 1;
+          padding: 1rem;
+          background: rgba(168, 85, 247, 0.1);
+          border: 2px solid rgba(168, 85, 247, 0.3);
+          border-radius: 12px;
+          color: #c084fc;
+          font-size: 0.95rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background: rgba(168, 85, 247, 0.2);
+            border-color: rgba(168, 85, 247, 0.5);
+          }
+
+          &.active {
+            background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);
+            border-color: #a855f7;
+            color: white;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+          }
+        }
+      }
+    }
+
+    // Configuration screenshots
+    .screenshot-config {
+      margin-top: 1.5rem;
+      padding: 1.5rem;
+      background: rgba(15, 15, 25, 0.5);
+      border-radius: 14px;
+      border: 1px solid rgba(168, 85, 247, 0.2);
+
+      .url-inputs {
+        margin-bottom: 1.5rem;
+
+        > label {
+          display: block;
+          margin-bottom: 0.8rem;
+          color: #c084fc;
+          font-weight: 600;
+          font-size: 0.9rem;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .url-input-group {
+          display: flex;
+          gap: 0.8rem;
+          margin-bottom: 0.8rem;
+
+          input[type="url"] {
+            flex: 1;
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            border: 2px solid rgba(168, 85, 247, 0.3);
+            background: rgba(15, 15, 25, 0.6);
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+
+            &:focus {
+              outline: none;
+              border-color: #a855f7;
+              box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
+              background: rgba(15, 15, 25, 0.8);
+            }
+
+            &::placeholder {
+              color: rgba(233, 215, 255, 0.4);
+            }
+          }
+
+          .remove-url {
+            padding: 0.8rem 1rem;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 10px;
+            color: #ef4444;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+
+            &:hover {
+              background: rgba(239, 68, 68, 0.2);
+              transform: scale(1.05);
+            }
+          }
+        }
+
+        .add-url {
+          width: 100%;
+          padding: 0.9rem;
+          background: rgba(168, 85, 247, 0.1);
+          border: 2px dashed rgba(168, 85, 247, 0.4);
+          border-radius: 10px;
+          color: #c084fc;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background: rgba(168, 85, 247, 0.2);
+            border-color: #a855f7;
+          }
+        }
+      }
+
+      .screenshot-count {
+        label {
+          display: block;
+          margin-bottom: 0.6rem;
+          color: #c084fc;
+          font-weight: 600;
+          font-size: 0.9rem;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        select {
+          width: 100%;
+          padding: 1rem 1.2rem;
+          border-radius: 12px;
+          border: 2px solid rgba(168, 85, 247, 0.3);
+          background: rgba(15, 15, 25, 0.6);
+          color: #fff;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+
+          &:focus {
+            outline: none;
+            border-color: #a855f7;
+            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
+          }
+
+          option {
+            background: #1a1a2e;
+            color: #fff;
+          }
+        }
+
+        .helper-text {
+          margin-top: 0.6rem;
+          font-size: 0.85rem;
+          color: #c084fc;
+          font-style: italic;
+        }
+      }
+    }
+
     input[type="file"] {
       padding: 1.2rem;
       border-radius: 14px;

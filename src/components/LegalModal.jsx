@@ -13,7 +13,7 @@ export default function LegalModal({ isOpen, onClose, type }) {
           <p>
             <strong>Nom :</strong> Théo Belland
             <br />
-            <strong>Statut :</strong> Développeur Web Freelance
+            <strong>Statut :</strong> Développeur web Front-End
             <br />
             <strong>Email :</strong> contact@theobelland.fr
           </p>
