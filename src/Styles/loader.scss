@@ -19,8 +19,7 @@
 }
 
 @keyframes pulse {
-  0%,
-  100% {
+  0%, 100% {
     opacity: 1;
   }
   50% {
@@ -101,12 +100,7 @@
       font-weight: 700;
       color: #fff;
       margin-bottom: 0.5rem;
-      background: linear-gradient(
-        135deg,
-        #a855f7 0%,
-        #c084fc 50%,
-        #e9d7ff 100%
-      );
+      background: linear-gradient(135deg, #a855f7 0%, #c084fc 50%, #e9d7ff 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -131,12 +125,7 @@
 
       .loader-bar {
         height: 100%;
-        background: linear-gradient(
-          90deg,
-          #a855f7 0%,
-          #c084fc 50%,
-          #e9d7ff 100%
-        );
+        background: linear-gradient(90deg, #a855f7 0%, #c084fc 50%, #e9d7ff 100%);
         border-radius: 10px;
         animation: progressBar 2.5s ease;
         box-shadow: 0 0 10px rgba(168, 85, 247, 0.6);

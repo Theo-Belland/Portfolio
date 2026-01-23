@@ -20,7 +20,7 @@ export default function DashboardAdmin() {
 
   const toggleMaintenance = () => setMaintenanceMode(!maintenanceMode);
 
-  const API_URL = import.meta.env.VITE_API_URL || "https://theobelland.fr/api";
+  const API_URL = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem("token"); // ton JWT admin
 
   useEffect(() => {
@@ -83,9 +83,7 @@ export default function DashboardAdmin() {
                 </ul>
               )}
             </li>
-            <li onClick={() => navigate("/admin/technologies")}>
-              🔧 Technologies
-            </li>
+            <li onClick={() => navigate("/admin/technologies")}>🔧 Technologies</li>
             <li>
               <div
                 className="menu-item"

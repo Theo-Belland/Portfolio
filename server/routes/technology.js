@@ -44,13 +44,13 @@ router.get("/", (req, res) => {
 // POST - Ajouter une technologie (admin)
 router.post("/", verifyToken, (req, res) => {
   const { name } = req.body;
-
+  
   if (!name || !name.trim()) {
     return res.status(400).json({ message: "Nom de technologie requis" });
   }
 
   const technologies = readTechnologies();
-
+  
   if (technologies.includes(name.trim())) {
     return res.status(400).json({ message: "Cette technologie existe déjà" });
   }
@@ -65,16 +65,16 @@ router.post("/", verifyToken, (req, res) => {
 // DELETE - Supprimer une technologie (admin)
 router.delete("/", verifyToken, (req, res) => {
   const { name } = req.body;
-
+  
   if (!name) {
     return res.status(400).json({ message: "Nom de technologie requis" });
   }
 
   let technologies = readTechnologies();
   const initialLength = technologies.length;
-
-  technologies = technologies.filter((tech) => tech !== name);
-
+  
+  technologies = technologies.filter(tech => tech !== name);
+  
   if (technologies.length === initialLength) {
     return res.status(404).json({ message: "Technologie non trouvée" });
   }

@@ -30,9 +30,8 @@ export default function CookieConsent() {
         <div className="cookie-text">
           <h3>Gestion des cookies</h3>
           <p>
-            Ce site utilise des cookies pour améliorer votre expérience de
-            navigation et analyser le trafic. En acceptant, vous consentez à
-            l'utilisation de cookies.
+            Ce site utilise des cookies pour améliorer votre expérience de navigation
+            et analyser le trafic. En acceptant, vous consentez à l'utilisation de cookies.
           </p>
         </div>
         <div className="cookie-actions">

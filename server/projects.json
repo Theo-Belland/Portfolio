@@ -18,7 +18,9 @@
     "github_url": "https://github.com/Theo-Belland/Kasa",
     "site_url": "http://kasa.theobelland.fr/",
     "technologies": [],
-    "images": [],
+    "images": [
+      "/uploads/1768551364098-Screenshot_2026-01-14_at_12-37-39_Vite.webp"
+    ],
     "imported": true,
     "updated_at": "2025-08-28T11:34:34Z",
     "pushed_at": "2025-08-28T11:34:31Z"
@@ -26,11 +28,24 @@
   {
     "id": "gh_1044986774",
     "title": "NinaCarducci",
-    "description": "Aucune description",
+    "description": "🎯 Objectif\r\nOptimiser les performances, le référencement naturel (SEO) et l’accessibilité du site vitrine de Nina Carducci, photographe professionnelle, afin d’améliorer sa visibilité en ligne et l’acquisition de nouveaux clients.\r\n\r\n📌 Contexte\r\nMission réalisée en tant que développeur freelance, suite à une démarche de prospection client. Le site existant présentait des temps de chargement élevés et un référencement insuffisant. L’optimisation s’appuie sur des audits Lighthouse (desktop), Wave et l’analyse des bonnes pratiques SEO modernes.\r\n\r\n🛠 Technologies & contraintes\r\n• HTML / CSS / JavaScript\r\n• Optimisation des performances (poids des images, structure du code)\r\n• SEO technique (balises meta, structure sémantique)\r\n• Schema.org pour le référencement local\r\n• Meta Open Graph / Twitter Cards pour les réseaux sociaux\r\n• Accessibilité web (normes WCAG)\r\n• Audit Lighthouse (version bureau) comme référence principale\r\n• Version optimisée livrée via un nouveau repo GitHub\r\n\r\n✨ Actions réalisées / Fonctionnalités SEO\r\n• Optimisation globale des performances du site\r\n• Compression et optimisation des images\r\n• Amélioration de la structure HTML et sémantique\r\n• Mise en place du référencement local (adresse, téléphone, horaires)\r\n• Ajout des metas pour le partage sur les réseaux sociaux\r\n• Corrections liées à l’accessibilité (contrastes, balises, navigation)\r\n• Comparaison des performances avant / après optimisation\r\n\r\n🚀 Résultat attendu\r\nUn site plus rapide, mieux référencé et accessible, offrant une meilleure visibilité locale et une expérience utilisateur optimisée, accompagné d’un rapport détaillé d’optimisation présentant les actions menées et leur impact mesuré.",
     "github_url": "https://github.com/Theo-Belland/NinaCarducci",
     "site_url": "http://nina-carducci.theobelland.fr/",
-    "technologies": [],
-    "images": [],
+    "technologies": [
+      "Accessibilité web (normes WCAG)",
+      "CSS",
+      "HTML",
+      "JavaScript",
+      "SEO",
+      "Schema.org",
+      "Optimisation des performances",
+      "Lighthouse"
+    ],
+    "images": [
+      "https://theobelland.fr/uploads/1768899053806-Screenshot_2026-01-20_at_09-50-08_Nina_Carducci_-_Photographe.webp",
+      "https://theobelland.fr/uploads/1768899053927-Screenshot_2026-01-20_at_09-49-52_Nina_Carducci_-_Photographe.webp",
+      "https://theobelland.fr/uploads/1768899054061-Screenshot_2026-01-20_at_09-49-37_Nina_Carducci_-_Photographe.webp"
+    ],
     "imported": true,
     "updated_at": "2025-09-11T16:26:56Z",
     "pushed_at": "2025-09-11T16:26:52Z"
@@ -53,12 +68,17 @@
     "description": "🎯 Objectif\r\nDévelopper un site mobile-first qui répertorie les menus de restaurants gastronomiques et permet aux utilisateurs de naviguer facilement entre les différentes offres culinaires.\r\n\r\n📌 Contexte\r\nProjet réalisé dans le cadre d’un exercice visant à apprendre et mettre en pratique la conception d’une interface responsive, l’organisation d’une structure front-end propre et l’utilisation de SASS pour un style modulaire et maintenable.\r\n\r\n🛠 Contraintes\r\n• Site mobile first obligatoire  \r\n• Responsive sur toutes les tailles d’écran  \r\n• Utilisation de SASS pour structurer les styles  \r\n• Hiérarchie visuelle simple et lisible  \r\n• Design moderne, gastronomique, élégant  \r\n\r\n✨ Fonctionnalités attendues\r\n• Listing des menus gastronomiques  \r\n• Mise en avant des plats / visuels  \r\n• Navigation intuitive mobile  \r\n• Modal détaillée d’un menu  \r\n• Séparation claire des sections (plats, prix, description)  \r\n\r\n🚀 Résultat attendu\r\nUn site clair, élégant, optimisé pour smartphone, avec un design gastronomique premium et un code SASS bien structuré.\r\n",
     "github_url": "https://github.com/Theo-Belland/Ohmyfood",
     "site_url": "https://ohmyfood.theobelland.fr/",
-    "technologies": ["SASS", "HTML"],
+    "technologies": [
+      "SASS",
+      "HTML"
+    ],
     "images": [
-      "/uploads/1765274568282-Screenshot_2025-12-09_at_11-02-30_La_Palette_du_gout.png",
-      "/uploads/1765274568285-Screenshot_2025-12-09_at_11-02-09_Ohmyfood.png",
-      "/uploads/1765274568335-Screenshot_2025-12-09_at_11-02-01_Ohmyfood.png",
-      "/uploads/1765274568336-Screenshot_2025-12-09_at_11-01-36_Ohmyfood.png"
+      "/uploads/1768901871185-Screenshot_2026-01-20_at_10-36-13_La_Palette_du_gout.webp",
+      "/uploads/1768901871236-Screenshot_2026-01-20_at_10-36-07_La_Palette_du_gout.webp",
+      "/uploads/1768901871278-Screenshot_2026-01-20_at_10-35-57_Ohmyfood.webp",
+      "/uploads/1768901871293-Screenshot_2026-01-20_at_10-35-49_Ohmyfood.webp",
+      "/uploads/1768901871413-Screenshot_2026-01-20_at_10-35-29_Ohmyfood.webp",
+      "/uploads/1768901871450-Screenshot_2026-01-20_at_10-35-24_Ohmyfood.webp"
     ],
     "imported": true,
     "updated_at": "2025-07-04T12:40:31Z",
@@ -103,11 +123,20 @@
   {
     "id": "gh_1015942997",
     "title": "Sophie-bluel",
-    "description": "Aucune description",
+    "description": "🎯 Objectif\r\nDévelopper une page web dynamique en JavaScript pour le portfolio d’une architecte d’intérieur, permettant l’affichage, la gestion et la mise à jour des projets via une interface administrateur sécurisée.\r\n\r\n📌 Contexte\r\nProjet réalisé en tant que développeur front-end au sein de l’agence ArchiWebos (50 salariés), en renfort sur la conception du site portfolio d’une architecte d’intérieur. Le travail s’appuie sur une base front-end existante, un back-end fourni, des maquettes Figma et une API documentée via Swagger.\r\n\r\n🛠 Technologies & contraintes\r\n• HTML / CSS (intégration conforme aux maquettes Figma)\r\n• JavaScript (Vanilla JS) pour le dynamisme et la manipulation du DOM\r\n• Fetch API pour la communication avec le back-end\r\n• Node.js & npm pour l’environnement de développement\r\n• API REST documentée avec Swagger\r\n• Utilisation d’un token d’authentification pour les actions administrateur\r\n• Mise à jour dynamique du DOM sans rechargement de page\r\n\r\n✨ Fonctionnalités attendues\r\n• Récupération dynamique des projets depuis le back-end\r\n• Affichage de la galerie de travaux de l’architecte\r\n• Filtrage des projets par catégorie (menu généré dynamiquement)\r\n• Page de connexion administrateur avec authentification\r\n• Fenêtre modale pour gérer les projets\r\n• Ajout de nouveaux médias via formulaire (upload)\r\n• Suppression de projets existants\r\n• Mise à jour instantanée de la galerie après ajout ou suppression\r\n\r\n🚀 Résultat attendu\r\nUn portfolio dynamique, interactif et administrable, fidèle aux maquettes, permettant à l’architecte de gérer ses projets en toute autonomie, avec une expérience utilisateur fluide et professionnelle.",
     "github_url": "https://github.com/Theo-Belland/Sophie-bluel",
     "site_url": "http://sophie-bluel.theobelland.fr/",
-    "technologies": [],
-    "images": [],
+    "technologies": [
+      "HTML",
+      "CSS",
+      "REST API",
+      "JavaScript",
+      "Node.js"
+    ],
+    "images": [
+      "/uploads/1768898679254-Screenshot_2026-01-20_at_09-39-59_Sophie_Bluel_-_Architecte_d'intÃ©rieur.webp",
+      "/uploads/1768898679314-Screenshot_2026-01-20_at_09-35-12_Sophie_Bluel_-_Architecte_d'intÃ©rieur.webp"
+    ],
     "imported": true,
     "updated_at": "2025-08-06T10:31:48Z",
     "pushed_at": "2025-08-06T10:31:45Z"

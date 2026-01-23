@@ -71,7 +71,9 @@ export default function Projects() {
           >
             <div className="project-image-wrapper">
               <img
-                src={proj.images?.[0] || placeholderImg}
+                src={
+                  proj.images?.[0] || placeholderImg
+                }
                 alt={proj.title}
                 loading="lazy"
                 width="400"

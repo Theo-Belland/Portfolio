@@ -79,7 +79,7 @@ export default function EditProject() {
       formData.append("title", title);
       formData.append("description", description);
       formData.append("technologies", JSON.stringify(selectedTechnos));
-
+      
       if (imageMode === "keep") {
         // Garder les anciennes images
         formData.append("oldImages", JSON.stringify(project.images || []));

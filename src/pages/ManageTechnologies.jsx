@@ -14,7 +14,7 @@ export default function ManageTechnologies() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [openSubMenu, setOpenSubMenu] = useState(null);
 
-  const API_URL = import.meta.env.VITE_API_URL || "https://theobelland.fr/api";
+  const API_URL = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem("token");
 
   const fetchTechnologies = async () => {
@@ -61,15 +61,13 @@ export default function ManageTechnologies() {
     try {
       const res = await axios.delete(`${API_URL}/technologies`, {
         headers: { Authorization: `Bearer ${token}` },
-        data: { name },
+        data: { name }
       });
       setTechnologies(res.data.technologies);
       setMessage("✅ Technologie supprimée");
       setTimeout(() => setMessage(""), 3000);
     } catch (err) {
-      setMessage(
-        err.response?.data?.message || "❌ Erreur lors de la suppression"
-      );
+      setMessage(err.response?.data?.message || "❌ Erreur lors de la suppression");
       setTimeout(() => setMessage(""), 3000);
     }
   };
@@ -107,9 +105,7 @@ export default function ManageTechnologies() {
                 </ul>
               )}
             </li>
-            <li onClick={() => navigate("/admin/technologies")}>
-              🔧 Technologies
-            </li>
+            <li onClick={() => navigate("/admin/technologies")}>🔧 Technologies</li>
           </ul>
         </nav>
       </aside>

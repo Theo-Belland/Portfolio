@@ -60,7 +60,7 @@ export default function ManagementProjects() {
 
       const data = await res.json();
       setImportStatus(`✅ ${data.message || "Projets importés !"}`);
-
+      
       // Rafraîchir la liste des projets après 1 seconde
       setTimeout(() => {
         window.location.reload();
@@ -102,9 +102,7 @@ export default function ManagementProjects() {
               )}
             </li>
 
-            <li onClick={() => navigate("/admin/technologies")}>
-              🔧 Technologies
-            </li>
+            <li onClick={() => navigate("/admin/technologies")}>🔧 Technologies</li>
 
             <li>
               <div
@@ -142,8 +140,12 @@ export default function ManagementProjects() {
             🔄 Importer depuis GitHub
           </button>
         </div>
-
-        {importStatus && <div className="import-status">{importStatus}</div>}
+        
+        {importStatus && (
+          <div className="import-status">
+            {importStatus}
+          </div>
+        )}
 
         <div className="projects-grid">
           {projects.map((p) => (
