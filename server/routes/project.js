@@ -25,31 +25,46 @@ const upload = multer({
   storage,
   limits: { fileSize: 10 * 1024 * 1024 }, // 10MB max
   fileFilter: (req, file, cb) => {
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp', 'image/bmp', 'image/tiff'];
+    const allowedTypes = [
+      "image/jpeg",
+      "image/jpg",
+      "image/png",
+      "image/gif",
+      "image/webp",
+      "image/bmp",
+      "image/tiff",
+    ];
     if (allowedTypes.includes(file.mimetype)) {
       cb(null, true);
     } else {
-      cb(new Error('Type de fichier non supporté. Utilisez JPG, PNG, GIF, WebP, BMP ou TIFF'));
+      cb(
+        new Error(
+          "Type de fichier non supporté. Utilisez JPG, PNG, GIF, WebP, BMP ou TIFF",
+        ),
+      );
     }
-  }
+  },
 });
 
 // Fonction pour redimensionner et optimiser les images
 async function processImage(buffer, originalName) {
   try {
     const timestamp = Date.now();
-    const safeName = timestamp + "-" + originalName.replace(/\s/g, "_").replace(/\.[^.]+$/, ".webp");
+    const safeName =
+      timestamp +
+      "-" +
+      originalName.replace(/\s/g, "_").replace(/\.[^.]+$/, ".webp");
     const outputPath = path.join(uploadsPath, safeName);
-    
+
     // Redimensionner l'image en gardant les proportions (max 1920x1080)
     await sharp(buffer)
       .resize(1920, 1080, {
-        fit: 'inside', // Garde les proportions, ne rogne pas
-        withoutEnlargement: true // Ne pas agrandir les petites images
+        fit: "inside", // Garde les proportions, ne rogne pas
+        withoutEnlargement: true, // Ne pas agrandir les petites images
       })
       .webp({ quality: 85 }) // Convertir en WebP pour optimiser
       .toFile(outputPath);
-    
+
     return `/uploads/${safeName}`;
   } catch (err) {
     console.error("Erreur traitement image:", err);
@@ -106,7 +121,7 @@ router.get("/", (req, res) => {
     projects.map((p) => ({
       ...p,
       images: (p.images || []).map(fixImageUrl),
-    }))
+    })),
   );
 });
 
@@ -114,7 +129,7 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   const projects = readProjects();
   const project = projects.find(
-    (p) => p.id.toString() === req.params.id.toString()
+    (p) => p.id.toString() === req.params.id.toString(),
   );
   if (!project) return res.status(404).json({ message: "Projet introuvable" });
 
@@ -132,7 +147,7 @@ router.post("/", verifyToken, upload.array("images", 10), async (req, res) => {
       return res.status(400).json({ message: "Champs manquants" });
 
     const projects = readProjects();
-    
+
     // Traiter les images (redimensionner + optimiser)
     const images = [];
     if (req.files && req.files.length > 0) {
@@ -142,7 +157,9 @@ router.post("/", verifyToken, upload.array("images", 10), async (req, res) => {
           images.push(imagePath);
         } catch (err) {
           console.error("Erreur traitement image:", err);
-          return res.status(400).json({ message: "Erreur lors du traitement d'une image" });
+          return res
+            .status(400)
+            .json({ message: "Erreur lors du traitement d'une image" });
         }
       }
     }
@@ -160,62 +177,78 @@ router.post("/", verifyToken, upload.array("images", 10), async (req, res) => {
     res.json(newProject);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: err.message || "Erreur serveur lors de l'ajout" });
+    res
+      .status(500)
+      .json({ message: err.message || "Erreur serveur lors de l'ajout" });
   }
 });
 
 // PUT project
-router.put("/:id", verifyToken, upload.array("images", 10), async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { title, description, technologies, oldImages } = req.body;
+router.put(
+  "/:id",
+  verifyToken,
+  upload.array("images", 10),
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { title, description, technologies, oldImages } = req.body;
 
-    const projects = readProjects();
-    const index = projects.findIndex((p) => p.id.toString() === id.toString());
-    if (index === -1)
-      return res.status(404).json({ message: "Projet non trouvé" });
+      const projects = readProjects();
+      const index = projects.findIndex(
+        (p) => p.id.toString() === id.toString(),
+      );
+      if (index === -1)
+        return res.status(404).json({ message: "Projet non trouvé" });
 
-    projects[index].title = title ?? projects[index].title;
-    projects[index].description = description ?? projects[index].description;
-    projects[index].technologies = technologies
-      ? JSON.parse(technologies)
-      : projects[index].technologies;
+      projects[index].title = title ?? projects[index].title;
+      projects[index].description = description ?? projects[index].description;
+      projects[index].technologies = technologies
+        ? JSON.parse(technologies)
+        : projects[index].technologies;
 
-    let images = projects[index].images || [];
+      let images = projects[index].images || [];
 
-    // Si oldImages existe, on garde les anciennes
-    if (oldImages) {
-      images = JSON.parse(oldImages);
-    }
-    // Si on upload de nouvelles images
-    else if (req.files?.length > 0) {
-      images = [];
-      for (const file of req.files) {
-        try {
-          const imagePath = await processImage(file.buffer, file.originalname);
-          images.push(imagePath);
-        } catch (err) {
-          console.error("Erreur traitement image:", err);
-          return res.status(400).json({ message: "Erreur lors du traitement d'une image" });
+      // Si oldImages existe, on garde les anciennes
+      if (oldImages) {
+        images = JSON.parse(oldImages);
+      }
+      // Si on upload de nouvelles images
+      else if (req.files?.length > 0) {
+        images = [];
+        for (const file of req.files) {
+          try {
+            const imagePath = await processImage(
+              file.buffer,
+              file.originalname,
+            );
+            images.push(imagePath);
+          } catch (err) {
+            console.error("Erreur traitement image:", err);
+            return res
+              .status(400)
+              .json({ message: "Erreur lors du traitement d'une image" });
+          }
         }
       }
+
+      projects[index].images = images;
+
+      saveProjects(projects);
+      res.json(projects[index]);
+    } catch (err) {
+      console.error("Erreur mise à jour :", err);
+      res
+        .status(500)
+        .json({ message: "Erreur serveur lors de la mise à jour" });
     }
-
-    projects[index].images = images;
-
-    saveProjects(projects);
-    res.json(projects[index]);
-  } catch (err) {
-    console.error("Erreur mise à jour :", err);
-    res.status(500).json({ message: "Erreur serveur lors de la mise à jour" });
-  }
-});
+  },
+);
 
 // DELETE project
 router.delete("/:id", verifyToken, (req, res) => {
   const projects = readProjects();
   const newProjects = projects.filter(
-    (p) => p.id.toString() !== req.params.id.toString()
+    (p) => p.id.toString() !== req.params.id.toString(),
   );
   if (projects.length === newProjects.length)
     return res.status(404).json({ message: "Projet introuvable" });
@@ -229,7 +262,7 @@ router.post("/import-github", verifyToken, async (req, res) => {
   try {
     const username = process.env.GITHUB_USERNAME || "Theo-Belland";
     const githubRes = await fetch(
-      `https://api.github.com/users/${username}/repos`
+      `https://api.github.com/users/${username}/repos`,
     );
     if (!githubRes.ok)
       return res.status(500).json({ message: "Erreur GitHub API" });

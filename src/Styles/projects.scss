@@ -19,7 +19,9 @@
     overflow: hidden;
     width: 360px;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
 
     &:hover {
       transform: translateY(-6px);
@@ -51,16 +53,15 @@
   }
 }
 @media (max-width: 768px) {
-  .projects{
+  .projects {
     display: flex;
     flex-direction: column;
-    .projects-grid{
+    .projects-grid {
       display: flex;
       flex-direction: column;
-      .project-card{
+      .project-card {
         width: 300px;
       }
     }
   }
-
 }
