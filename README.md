@@ -1,69 +1,63 @@
-# 🚀 Portfolio - Théo Belland
+🚀 Portfolio - Théo Belland
 
 Portfolio personnel développé avec React + Vite, présentant mes projets et compétences en développement Full Stack.
+🌐 Site en ligne
 
-## 🌐 Site en ligne
+URL : theobelland.fr
+✨ Fonctionnalités
+Frontend Public
 
-**URL** : [theobelland.fr](https://theobelland.fr)
+    🎨 Design moderne avec animations fluides
+    📱 Responsive (mobile, tablette, desktop)
+    🔄 Loader animé au démarrage
+    🍪 Gestion du consentement cookies
+    💼 Présentation des projets avec slider
+    🛠️ Affichage des technologies/compétences
+    📧 Formulaire de contact
 
-## ✨ Fonctionnalités
+Panel Admin
 
-### Frontend Public
+    🔐 Authentification sécurisée (JWT)
+    ✏️ Gestion complète des projets (CRUD)
+    🔧 Gestion des technologies
+    📊 Dashboard administrateur
+    🔗 Import automatique depuis GitHub
+    📸 Upload d'images multiples
 
-- 🎨 Design moderne avec animations fluides
-- 📱 Responsive (mobile, tablette, desktop)
-- 🔄 Loader animé au démarrage
-- 🍪 Gestion du consentement cookies
-- 💼 Présentation des projets avec slider
-- 🛠️ Affichage des technologies/compétences
-- 📧 Formulaire de contact
+🛠️ Stack Technique
+Frontend
 
-### Panel Admin
+    Framework : React 18
+    Build Tool : Vite 4.5
+    Routing : React Router DOM
+    Styling : SCSS + CSS Modules
+    Icons : React Icons
+    Slider : Swiper
 
-- 🔐 Authentification sécurisée (JWT)
-- ✏️ Gestion complète des projets (CRUD)
-- 🔧 Gestion des technologies
-- 📊 Dashboard administrateur
-- 🔗 Import automatique depuis GitHub
-- 📸 Upload d'images multiples
+Backend
 
-## 🛠️ Stack Technique
+    Runtime : Node.js + Express
+    Base de données : JSON (fichiers)
+    Upload : Multer
+    Auth : JWT (jsonwebtoken)
+    CORS : CORS middleware
+    Process Manager : PM2
 
-### Frontend
+Déploiement
 
-- **Framework** : React 18
-- **Build Tool** : Vite 4.5
-- **Routing** : React Router DOM
-- **Styling** : SCSS + CSS Modules
-- **Icons** : React Icons
-- **Slider** : Swiper
+    Hébergement : VPS Linux
+    Serveur Web : Nginx
+    Domain : theobelland.fr
+    SSL : Certbot (Let's Encrypt)
 
-### Backend
+📦 Installation
+Prérequis
 
-- **Runtime** : Node.js + Express
-- **Base de données** : JSON (fichiers)
-- **Upload** : Multer
-- **Auth** : JWT (jsonwebtoken)
-- **CORS** : CORS middleware
-- **Process Manager** : PM2
+    Node.js >= 16
+    npm ou yarn
 
-### Déploiement
+Frontend
 
-- **Hébergement** : VPS Linux
-- **Serveur Web** : Nginx
-- **Domain** : theobelland.fr
-- **SSL** : Certbot (Let's Encrypt)
-
-## 📦 Installation
-
-### Prérequis
-
-- Node.js >= 16
-- npm ou yarn
-
-### Frontend
-
-```bash
 # Cloner le repository
 git clone https://github.com/votre-username/portfolio-vite.git
 cd portfolio-vite
@@ -79,11 +73,9 @@ npm run dev
 
 # Build pour production
 npm run build
-```
 
-### Backend
+Backend
 
-```bash
 # Aller dans le dossier serveur
 cd server
 
@@ -100,11 +92,9 @@ npm start
 
 # Ou avec PM2
 pm2 start server.js --name portfolio-server
-```
 
-## 🌳 Structure du projet
+🌳 Structure du projet
 
-```
 portfolio-vite/
 ├── src/
 │   ├── components/        # Composants React
@@ -139,89 +129,78 @@ portfolio-vite/
 ├── public/                # Assets statiques
 ├── dist/                  # Build de production
 └── package.json
-```
 
-## 🔧 Configuration
+🔧 Configuration
+Variables d'environnement Frontend (.env)
 
-### Variables d'environnement Frontend (.env)
-
-```env
 VITE_API_URL=https://theobelland.fr/api
-```
 
-### Variables d'environnement Backend (server/.env)
+Variables d'environnement Backend (server/.env)
 
-```env
 PORT=5000
 JWT_SECRET=votre_secret_jwt_securise
 GITHUB_TOKEN=ghp_votre_token_github
-```
 
-## 📡 API Endpoints
+📡 API Endpoints
+Publics
 
-### Publics
+    GET /api/projects - Liste des projets
+    GET /api/technologies - Liste des technologies
+    POST /api/contact - Envoyer un message
+    POST /api/visite - Enregistrer une visite
 
-- `GET /api/projects` - Liste des projets
-- `GET /api/technologies` - Liste des technologies
-- `POST /api/contact` - Envoyer un message
-- `POST /api/visite` - Enregistrer une visite
+Admin (Auth requise)
 
-### Admin (Auth requise)
+    POST /api/admin/login - Connexion admin
+    POST /api/projects - Créer un projet
+    PUT /api/projects/:id - Modifier un projet
+    DELETE /api/projects/:id - Supprimer un projet
+    POST /api/projects/import-github - Import GitHub
+    POST /api/technologies - Ajouter une technologie
+    DELETE /api/technologies/:id - Supprimer une technologie
 
-- `POST /api/admin/login` - Connexion admin
-- `POST /api/projects` - Créer un projet
-- `PUT /api/projects/:id` - Modifier un projet
-- `DELETE /api/projects/:id` - Supprimer un projet
-- `POST /api/projects/import-github` - Import GitHub
-- `POST /api/technologies` - Ajouter une technologie
-- `DELETE /api/technologies/:id` - Supprimer une technologie
+🚀 Déploiement
 
-## 🚀 Déploiement
+Voir DEPLOYMENT.md pour les instructions détaillées de déploiement sur VPS.
+🎨 Design
 
-Voir [DEPLOYMENT.md](./DEPLOYMENT.md) pour les instructions détaillées de déploiement sur VPS.
+    Palette de couleurs : Dégradés purple (#a855f7, #c084fc, #e9d7ff)
+    Police : System fonts (Arial, sans-serif)
+    Animations : Transitions CSS + keyframes
+    Responsive : Mobile-first approach
 
-## 🎨 Design
+🔐 Sécurité
 
-- **Palette de couleurs** : Dégradés purple (#a855f7, #c084fc, #e9d7ff)
-- **Police** : System fonts (Arial, sans-serif)
-- **Animations** : Transitions CSS + keyframes
-- **Responsive** : Mobile-first approach
+    ✅ JWT pour l'authentification
+    ✅ CORS configuré
+    ✅ Validation des entrées
+    ✅ Protection des routes admin
+    ✅ HTTPS (SSL)
+    ✅ Sanitization des uploads
 
-## 🔐 Sécurité
-
-- ✅ JWT pour l'authentification
-- ✅ CORS configuré
-- ✅ Validation des entrées
-- ✅ Protection des routes admin
-- ✅ HTTPS (SSL)
-- ✅ Sanitization des uploads
-
-## 🤝 Contribution
+🤝 Contribution
 
 Les contributions sont les bienvenues ! N'hésitez pas à :
 
-1. Fork le projet
-2. Créer une branche (`git checkout -b feature/amelioration`)
-3. Commit vos changements (`git commit -m 'Ajout fonctionnalité'`)
-4. Push (`git push origin feature/amelioration`)
-5. Ouvrir une Pull Request
+    Fork le projet
+    Créer une branche (git checkout -b feature/amelioration)
+    Commit vos changements (git commit -m 'Ajout fonctionnalité')
+    Push (git push origin feature/amelioration)
+    Ouvrir une Pull Request
 
-## 📝 License
+📝 License
 
-Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE) pour plus de détails.
+Ce projet est sous licence MIT - voir le fichier LICENSE pour plus de détails.
+👤 Auteur
 
-## 👤 Auteur
+Théo Belland
 
-**Théo Belland**
+    Website : theobelland.fr
+    GitHub : @votre-username
+    LinkedIn : Théo Belland
 
-- Website : [theobelland.fr](https://theobelland.fr)
-- GitHub : [@votre-username](https://github.com/votre-username)
-- LinkedIn : [Théo Belland](https://linkedin.com/in/votre-profil)
+📞 Contact
 
-## 📞 Contact
+Pour toute question, vous pouvez me contacter via le formulaire sur theobelland.fr ou par email.
 
-Pour toute question, vous pouvez me contacter via le formulaire sur [theobelland.fr](https://theobelland.fr) ou par email.
-
----
-
-⭐ **Star le projet si tu l'aimes !** ⭐
+⭐ Star le projet si tu l'aimes ! ⭐
