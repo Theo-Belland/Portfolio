@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Modal from "./Modal";
-import "../Styles/projects.scss";
+import "../Styles/components/_projects.scss";
 import placeholderImg from "../assets/placeholder.webp";
 
 export default function Projects() {
@@ -71,9 +71,7 @@ export default function Projects() {
           >
             <div className="project-image-wrapper">
               <img
-                src={
-                  proj.images?.[0] || placeholderImg
-                }
+                src={proj.images?.[0] || placeholderImg}
                 alt={proj.title}
                 loading="lazy"
                 width="400"

@@ -1,68 +1,10 @@
+// @use supprimé car admin-shared n'existe plus, utiliser base/_variables.scss ou base/_mixins.scss si besoin
+
 .projects-admin-page {
   display: flex;
   min-height: 100vh;
   width: 100%;
   font-family: Arial, sans-serif;
-
-  /* ===== SIDEBAR ===== */
-  .admin-sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 240px;
-    height: 100vh;
-    background: #0a0a14;
-    display: flex;
-    flex-direction: column;
-    padding: 2rem 1rem;
-    z-index: 10;
-    transform: translateX(0);
-    transition: transform 0.3s ease;
-  }
-
-  .admin-sidebar h2 {
-    color: #a855f7;
-    margin-bottom: 2rem;
-    text-align: center;
-  }
-
-  .menu-list {
-    list-style: none;
-    width: 100%;
-  }
-
-  .menu-list > li {
-    margin-bottom: 1rem;
-  }
-
-  .menu-item {
-    cursor: pointer;
-    padding: 0.6rem 0.8rem;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-  }
-
-  .menu-item:hover {
-    background: rgba(168, 85, 247, 0.2);
-  }
-
-  .submenu {
-    list-style: none;
-    padding-left: 1rem;
-    margin-top: 0.5rem;
-  }
-
-  .submenu li {
-    cursor: pointer;
-    padding: 0.4rem 0.8rem;
-    border-left: 2px solid #a855f7;
-    margin-bottom: 0.4rem;
-    transition: all 0.2s ease;
-  }
-
-  .submenu li:hover {
-    background: rgba(168, 85, 247, 0.2);
-  }
 
   /* ===== HAMBURGER MOBILE ===== */
   .hamburger {
@@ -219,3 +161,4 @@
     }
   }
 }
+// Styles page management ici (à déplacer depuis managementProj.scss)

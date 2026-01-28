@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../Styles/form.scss";
+import "../Styles/components/_form.scss";
 import { MapPin, Phone, Mail } from "lucide-react"; // Icônes propres
 
 export default function Contact() {
@@ -69,6 +69,7 @@ export default function Contact() {
                 loading="lazy"
                 allowFullScreen
                 referrerPolicy="no-referrer-when-downgrade"
+                title="Carte Google Maps de l’adresse de Theo Belland à Landisacq"
               ></iframe>
             </div>
           </div>
@@ -79,7 +80,7 @@ export default function Contact() {
           <h3>Contactez-moi</h3>
 
           <form className="form-contact" onSubmit={handleSubmit}>
-            <label>Nom</label>
+            <label htmlFor="name">Nom</label>
             <input
               name="name"
               value={form.name}
@@ -87,7 +88,7 @@ export default function Contact() {
               required
             />
 
-            <label>Email</label>
+            <label htmlFor="email">Email</label>
             <input
               name="email"
               type="email"
@@ -96,7 +97,7 @@ export default function Contact() {
               required
             />
 
-            <label>Message</label>
+            <label htmlFor="message">Message</label>
             <textarea
               name="message"
               value={form.message}

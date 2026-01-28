@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import profilImg from "../assets/profil.webp";
-import "../Styles/presentation.scss";
+import CVButton from "./CVButton";
+import "../Styles/components/_hero.scss";
 
 export default function Hero() {
   const words = ["Front-end", "HTML / CSS / JS", "React", "Node.js"];
@@ -110,6 +111,7 @@ export default function Hero() {
             </div>
           </div>
         </div>
+        <CVButton />
       </div>
     </section>
   );

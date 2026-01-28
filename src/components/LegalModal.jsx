@@ -1,5 +1,5 @@
 import React from "react";
-import "../Styles/modal.scss";
+import "../Styles/layout/_modal.scss";
 
 export default function LegalModal({ isOpen, onClose, type }) {
   if (!isOpen) return null;

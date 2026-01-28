@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import "../Styles/add-project.scss";
+import "../Styles/admin/_add-project.scss";
 
 export default function EditProject() {
   const { id } = useParams();
@@ -79,7 +79,7 @@ export default function EditProject() {
       formData.append("title", title);
       formData.append("description", description);
       formData.append("technologies", JSON.stringify(selectedTechnos));
-      
+
       if (imageMode === "keep") {
         // Garder les anciennes images
         formData.append("oldImages", JSON.stringify(project.images || []));

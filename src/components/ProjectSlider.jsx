@@ -4,7 +4,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "../Styles/projectSlider.scss";
+import "../Styles/components/_project-slider.scss";
 
 const SITE_URL = import.meta.env.VITE_SITE_URL || "http://localhost:5000";
 

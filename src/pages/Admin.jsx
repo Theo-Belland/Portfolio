@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useApp } from "../context/AppContext";
-import "../Styles/admin.scss";
+import "../Styles/admin/_admin.scss";
 import axios from "axios";
 
 export default function DashboardAdmin() {
@@ -83,7 +83,9 @@ export default function DashboardAdmin() {
                 </ul>
               )}
             </li>
-            <li onClick={() => navigate("/admin/technologies")}>🔧 Technologies</li>
+            <li onClick={() => navigate("/admin/technologies")}>
+              🔧 Technologies
+            </li>
             <li>
               <div
                 className="menu-item"

@@ -1,3 +1,5 @@
+@use "../../Styles/base/variables" as *;
+
 .projects {
   padding: 4rem 2rem;
   text-align: center;
@@ -11,6 +13,18 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
+  }
+  @media (max-width: 1024px) and (min-width: 768px) {
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    .projects-container {
+      width: 90vw;
+      max-width: 900px;
+      margin: 0 auto;
+    }
   }
 
   .project-card {
@@ -64,4 +78,10 @@
       }
     }
   }
+  .projects-container {
+    width: 90vw;
+    max-width: 600px;
+    margin: 0 auto;
+  }
 }
+// Styles projets ici (à déplacer depuis projects.scss)

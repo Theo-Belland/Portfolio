@@ -1,0 +1,62 @@
+
+@use "../base/variables" as *;
+
+// ================= Admin Sidebar ======================
+.admin-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  background: $color-bg-dark;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1rem;
+  z-index: 10;
+  transform: translateX(0);
+  transition: transform 0.3s ease;
+
+  h2 {
+    color: $color-primary;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+}
+
+.menu-list {
+  list-style: none;
+  width: 100%;
+
+  > li {
+    margin-bottom: 1rem;
+  }
+}
+
+.menu-item {
+  cursor: pointer;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(168, 85, 247, 0.2);
+  }
+}
+
+.submenu {
+  list-style: none;
+  padding-left: 1rem;
+  margin-top: 0.5rem;
+
+  li {
+    cursor: pointer;
+    padding: 0.4rem 0.8rem;
+    border-left: 2px solid $color-primary;
+    margin-bottom: 0.4rem;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba(168, 85, 247, 0.2);
+    }
+  }
+}

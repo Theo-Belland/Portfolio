@@ -1,5 +1,5 @@
-@use "./shared/variables" as *;
-@use "mixins" as *;
+@use "../../Styles/base/variables" as *;
+@use "../../Styles/base/mixins" as *;
 
 .contact-section {
   display: flex;
@@ -182,3 +182,4 @@
     }
   }
 }
+// Styles form ici (à déplacer depuis form.scss)

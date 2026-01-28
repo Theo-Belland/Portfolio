@@ -1,4 +1,5 @@
-@use "mixins" as *;
+@use "../../Styles/base/mixins" as *;
+@use "../../Styles/base/variables" as *;
 
 .skills {
   @include section-box;
@@ -70,6 +71,27 @@
   }
 }
 
+/* Tech badge styles (fusion) */
+.tech-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.8rem;
+  background-color: #eee;
+  color: #333;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  margin: 0.2rem;
+}
+
+.remove-btn {
+  border: none;
+  background: transparent;
+  color: #888;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
 /* ===================================================== */
 /* ====================== RESPONSIVE ===================== */
 /* ===================================================== */
@@ -124,3 +146,4 @@
     }
   }
 }
+// Styles skills ici (à déplacer depuis skill.scss et techBadge.scss)

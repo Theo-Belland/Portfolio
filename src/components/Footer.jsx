@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaFacebook, FaLinkedin, FaGithub, FaUserCircle } from "react-icons/fa";
-import "../Styles/footer.scss";
+import "../Styles/layout/_footer.scss";
 import { useNavigate } from "react-router-dom";
 import LegalModal from "./LegalModal";
 
@@ -32,6 +32,7 @@ export default function Footer() {
             href="https://www.facebook.com/profile.php?id=61582568237780"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Facebook"
           >
             <FaFacebook />
           </a>
@@ -39,6 +40,7 @@ export default function Footer() {
             href="https://www.linkedin.com/in/theo-belland-94b27a1aa/"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="LinkedIn"
           >
             <FaLinkedin />
           </a>
@@ -46,6 +48,7 @@ export default function Footer() {
             href="https://github.com/Theo-Belland"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="GitHub"
           >
             <FaGithub />
           </a>

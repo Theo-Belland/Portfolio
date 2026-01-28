@@ -1,3 +1,17 @@
+@use "./variables" as *;
+
+@mixin mobile {
+  @media (max-width: #{$breakpoint-mobile}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: 768px) and (max-width: #{$breakpoint-tablet}) {
+    @content;
+  }
+}
+
 @mixin section-box {
   background: rgba(20, 20, 20, 0.85);
   backdrop-filter: blur(12px);
@@ -8,12 +22,11 @@
   max-width: 1200px;
   box-shadow: 0 0 40px rgba(140, 0, 255, 0.25);
   color: #e9d7ff;
-    /* === Responsive inclus dans le mixin === */
+  /* === Responsive inclus dans le mixin === */
   @media (max-width: 768px) {
-    padding: 2rem 0.8rem; 
+    padding: 2rem 0.8rem;
     // ↑ réduit UNIQUEMENT les côtés
     // ↑ garde un bon espace vertical
-
     border-radius: 14px;
     max-width: 90%;
   }

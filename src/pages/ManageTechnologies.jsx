@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../Styles/admin.scss";
-import "../Styles/managementProj.scss";
-import "../Styles/technologies.scss";
+import "../Styles/admin/_admin.scss";
+import "../Styles/admin/_management.scss";
+import "../Styles/admin/_technologies.scss";
 import axios from "axios";
 
 export default function ManageTechnologies() {
@@ -43,7 +43,7 @@ export default function ManageTechnologies() {
       const res = await axios.post(
         `${API_URL}/technologies`,
         { name: newTech.trim() },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
       setTechnologies(res.data.technologies);
       setNewTech("");
@@ -61,13 +61,15 @@ export default function ManageTechnologies() {
     try {
       const res = await axios.delete(`${API_URL}/technologies`, {
         headers: { Authorization: `Bearer ${token}` },
-        data: { name }
+        data: { name },
       });
       setTechnologies(res.data.technologies);
       setMessage("✅ Technologie supprimée");
       setTimeout(() => setMessage(""), 3000);
     } catch (err) {
-      setMessage(err.response?.data?.message || "❌ Erreur lors de la suppression");
+      setMessage(
+        err.response?.data?.message || "❌ Erreur lors de la suppression",
+      );
       setTimeout(() => setMessage(""), 3000);
     }
   };
@@ -105,7 +107,9 @@ export default function ManageTechnologies() {
                 </ul>
               )}
             </li>
-            <li onClick={() => navigate("/admin/technologies")}>🔧 Technologies</li>
+            <li onClick={() => navigate("/admin/technologies")}>
+              🔧 Technologies
+            </li>
           </ul>
         </nav>
       </aside>

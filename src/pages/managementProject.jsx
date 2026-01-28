@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useApp } from "../context/AppContext";
 import Modal from "../components/Modal";
-import "../Styles/managementProj.scss";
+import "../Styles/admin/_management.scss";
 
 export default function ManagementProjects() {
   const { user } = useApp();
@@ -25,7 +25,7 @@ export default function ManagementProjects() {
             ...p,
             images: p.images || [],
             technologies: p.technologies || [],
-          }))
+          })),
         );
       } catch (err) {
         console.error(err);
@@ -60,7 +60,7 @@ export default function ManagementProjects() {
 
       const data = await res.json();
       setImportStatus(`✅ ${data.message || "Projets importés !"}`);
-      
+
       // Rafraîchir la liste des projets après 1 seconde
       setTimeout(() => {
         window.location.reload();
@@ -102,7 +102,9 @@ export default function ManagementProjects() {
               )}
             </li>
 
-            <li onClick={() => navigate("/admin/technologies")}>🔧 Technologies</li>
+            <li onClick={() => navigate("/admin/technologies")}>
+              🔧 Technologies
+            </li>
 
             <li>
               <div
@@ -140,12 +142,8 @@ export default function ManagementProjects() {
             🔄 Importer depuis GitHub
           </button>
         </div>
-        
-        {importStatus && (
-          <div className="import-status">
-            {importStatus}
-          </div>
-        )}
+
+        {importStatus && <div className="import-status">{importStatus}</div>}
 
         <div className="projects-grid">
           {projects.map((p) => (

@@ -1,0 +1,137 @@
+/* ================= DESKTOP ================= */
+
+.navbar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 900px;
+  height: 60px;
+  border-radius: 40px;
+
+  background: rgba(20, 20, 20, 0.85);
+  border: 1px solid rgba(150, 0, 255, 0.25);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 30px rgba(140, 0, 255, 0.25);
+
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .navbar-content {
+    width: 100%;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* liens visibles UNIQUEMENT desktop */
+  .navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+
+    li a {
+      text-decoration: none;
+      color: #e4d0ff;
+      font-size: 18px;
+      font-weight: 500;
+      transition: 0.2s;
+
+      &:hover {
+        color: #c084fc;
+        text-shadow: 0 0 10px rgba(192, 132, 252, 0.8);
+      }
+    }
+  }
+
+  /* bouton caché desktop */
+  .menu-toggle {
+    display: none;
+  }
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+  /* 🔴 SUPPRESSION VISUELLE DE LA NAVBAR DESKTOP */
+  .navbar {
+    all: unset;
+    position: fixed;
+    top: 20px;
+    z-index: 1000;
+  }
+
+  .navbar-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+
+  /* ===== BOUTON MENU ===== */
+  .menu-toggle {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 320px;
+    height: 36px;
+
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1;
+    white-space: nowrap;
+
+    background: rgba(20, 20, 20, 0.9);
+    color: #e4d0ff;
+    border: 1px solid rgba(150, 0, 255, 0.3);
+    border-radius: 14px;
+    cursor: pointer;
+
+    box-shadow: 0 0 12px rgba(140, 0, 255, 0.3);
+  }
+
+  /* 🔴 CACHE TOTALEMENT LES LIENS DESKTOP */
+  .navbar-links {
+    display: none !important;
+  }
+
+  /* 🟢 MENU DÉROULANT */
+  .navbar-links.active {
+    display: block !important;
+    width: 200px;
+    padding: 16px;
+    margin: 0;
+
+    list-style: none;
+    background: rgba(20, 20, 20, 0.95);
+    border: 1px solid rgba(150, 0, 255, 0.25);
+    border-radius: 18px;
+    box-shadow: 0 0 25px rgba(140, 0, 255, 0.3);
+
+    li {
+      text-align: center;
+      margin-bottom: 12px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      a {
+        display: block;
+        padding: 6px 0;
+        font-size: 15px;
+        text-decoration: none;
+        color: #e4d0ff;
+
+        &:hover {
+          color: #c084fc;
+        }
+      }
+    }
+  }
+}

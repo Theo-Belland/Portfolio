@@ -1,5 +1,36 @@
-@use "mixins" as *;
+@use "../../Styles/base/mixins" as *;
+@use "../../Styles/base/variables" as *;
 
+// ================= Hero Section ========================
+
+// === Bouton CV ===
+.cv-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.cv-btn {
+  background: linear-gradient(90deg, #a084fc 0%, #c084fc 100%);
+  color: #fff;
+  padding: 0.8rem 2.2rem;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 2px 12px rgba(150, 0, 255, 0.13);
+  transition:
+    background 0.2s,
+    transform 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    background: linear-gradient(90deg, #c084fc 0%, #a084fc 100%);
+    transform: translateY(-2px) scale(1.04);
+  }
+}
+
+// === Hero principal ===
 .hero {
   display: flex;
   justify-content: center;
@@ -12,7 +43,7 @@
     text-align: center;
   }
 
-  /* === TITRE PRINCIPAL === */
+  // === Titre principal ===
   h1 {
     font-size: 2.4rem;
     font-weight: 700;
@@ -20,7 +51,7 @@
     color: #f3e8ff;
   }
 
-  /* === TEXTE ANIMÉ === */
+  // === Texte animé ===
   .animated-text {
     font-size: 1.3rem;
     margin-bottom: 2rem;
@@ -29,13 +60,12 @@
       color: #c084fc;
       font-weight: 600;
     }
-
     .cursor {
       animation: blink 1s infinite;
     }
   }
 
-  /* === LAYOUT (photo + texte) === */
+  // === Layout (photo + texte) ===
   .colonne {
     display: flex;
     align-items: center;
@@ -43,51 +73,50 @@
     gap: 70px;
   }
 
-  /* === PHOTO === */
+  // === Photo ===
   .img {
     height: 260px;
     width: auto;
     border-radius: 18px;
     box-shadow: 0 0 15px rgba(150, 0, 255, 0.3);
   }
-
   .img-rond {
     clip-path: ellipse(50% 33%);
   }
 
-  /* === CONTENU TEXTE === */
+  // === Contenu texte ===
   .max-width {
     max-width: 600px;
     text-align: left;
+
+    h2 {
+      color: #c084fc;
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
   }
 
-  .max-width h2 {
-    color: #c084fc;
-    font-size: 1.3rem;
-    margin-bottom: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  /* === Présentation stylisée === */
+  // === Présentation stylisée ===
   .presentation-wrapper {
     display: flex;
     flex-direction: column;
     gap: 1.6rem;
 
-    .section h3 {
-      font-size: 1.2rem;
-      color: #d6b1ff;
-      font-weight: 600;
-      margin-bottom: 0.3rem;
+    .section {
+      h3 {
+        font-size: 1.2rem;
+        color: #d6b1ff;
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+      }
+      p {
+        font-size: 1rem;
+        line-height: 1.6;
+        opacity: 0.9;
+      }
     }
-
-    .section p {
-      font-size: 1rem;
-      line-height: 1.6;
-      opacity: 0.9;
-    }
-
     .separator {
       height: 1px;
       width: 100%;
@@ -101,7 +130,7 @@
     }
   }
 
-  /* === ANIMATIONS === */
+  // === Animations ===
   @keyframes slideUpHero {
     from {
       opacity: 0;
@@ -112,7 +141,6 @@
       transform: translateY(0);
     }
   }
-
   @keyframes blink {
     0%,
     50%,
@@ -126,10 +154,7 @@
   }
 }
 
-/* ===================================================== */
-/* ====================== RESPONSIVE ===================== */
-/* ===================================================== */
-
+// ================= Responsive =========================
 @media (max-width: 768px) {
   .hero {
     padding-top: 140px;
@@ -138,41 +163,49 @@
 
     .hero-box {
       padding: 2rem 0.8rem !important;
-      // ↑ Haut/bas inchangés (2rem)
-      // ↑ Côtés très réduits (0.8rem) → bords visibles
     }
-
     h1 {
       font-size: 1.7rem;
     }
-
     .animated-text {
       font-size: 1rem;
       margin-bottom: 1.3rem;
     }
-
     .colonne {
       flex-direction: column;
       gap: 20px;
       text-align: center;
     }
-
     .img {
       height: 150px;
     }
-
     .max-width {
       text-align: center;
-      max-width: 95%; // on resserre pour voir les bords
+      max-width: 95%;
     }
-
-    .presentation-wrapper .section h3 {
-      font-size: 1.05rem;
+    .presentation-wrapper {
+      .section {
+        h3 {
+          font-size: 1.05rem;
+        }
+        p {
+          font-size: 0.85rem;
+          line-height: 1.5;
+        }
+      }
     }
-
-    .presentation-wrapper .section p {
-      font-size: 0.85rem;
-      line-height: 1.5;
+  }
+}
+@media (max-width: 1024px) and (min-width: 768px) {
+  .hero {
+    .hero-box {
+      width: 90vw;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .max-width {
+      max-width: 90vw;
+      margin: 0 auto;
     }
   }
 }

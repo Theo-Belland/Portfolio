@@ -1,0 +1,210 @@
+// Footer SCSS idiomatique
+.footer {
+  width: 100%;
+  background-color: #03071280;
+  color: white;
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+
+  > * {
+    flex: 1;
+    text-align: center;
+  }
+
+  .socials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0;
+
+    a {
+      color: white;
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      background: rgba(168, 85, 247, 0.08);
+      box-shadow: 0 2px 8px rgba(168, 85, 247, 0.08);
+
+      &:hover {
+        color: #60a5fa;
+        background: rgba(168, 85, 247, 0.18);
+        box-shadow: 0 4px 16px rgba(168, 85, 247, 0.18);
+      }
+    }
+  }
+
+  .legal {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: center;
+
+    a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: white;
+      }
+    }
+  }
+
+  .admin-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: 1.2rem auto 0 auto;
+    font-size: 2rem;
+    color: #a855f7;
+    transition:
+      color 0.2s,
+      transform 0.2s;
+
+    svg {
+      font-size: 2rem;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #60a5fa;
+      }
+    }
+
+    &:hover {
+      color: #c084fc;
+      transform: scale(1.1);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+
+    > * {
+      flex: none;
+      width: 100%;
+    }
+
+    .legal {
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .socials {
+      gap: 1rem;
+      font-size: 1.3rem;
+      a {
+        font-size: 1.3rem;
+        width: 36px;
+        height: 36px;
+      }
+    }
+
+    .admin-icon {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+// Liens légaux
+.legal {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1.2rem;
+
+  a {
+    color: #a855f7;
+    text-decoration: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    font-weight: 500;
+  }
+  a:hover {
+    color: #c084fc;
+    text-decoration: underline;
+  }
+}
+
+// Icône admin
+.admin-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.2rem auto 0 auto;
+  font-size: 2.2rem;
+  color: #a855f7;
+  cursor: pointer;
+  transition:
+    color 0.2s,
+    transform 0.2s;
+}
+.admin-icon:hover {
+  color: #c084fc;
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .legal {
+    gap: 1rem;
+    font-size: 0.95rem;
+  }
+  .admin-icon {
+    font-size: 1.5rem;
+  }
+}
+
+// Socials (icônes)
+.socials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+
+  a {
+    color: #c084fc;
+    font-size: 2rem;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    background: rgba(168, 85, 247, 0.08);
+    box-shadow: 0 2px 8px rgba(168, 85, 247, 0.08);
+  }
+
+  a:hover {
+    color: #a855f7;
+    background: rgba(168, 85, 247, 0.18);
+    box-shadow: 0 4px 16px rgba(168, 85, 247, 0.18);
+  }
+}
+
+@media (max-width: 768px) {
+  .socials {
+    gap: 1rem;
+    font-size: 1.3rem;
+    a {
+      font-size: 1.3rem;
+      width: 36px;
+      height: 36px;
+    }
+  }
+}

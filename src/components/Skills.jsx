@@ -1,7 +1,7 @@
 import React from "react";
 import { FaHtml5, FaCss3Alt, FaJs, FaReact, FaNodeJs } from "react-icons/fa";
 import { motion } from "framer-motion";
-import "../Styles/skill.scss";
+import "../Styles/components/_skills.scss";
 
 export default function Skills() {
   const skills = [

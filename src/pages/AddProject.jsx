@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../Styles/add-project.scss";
+import "../Styles/admin/_add-project.scss";
 
 export default function AddProject() {
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../Styles/login.scss";
+import "../Styles/components/_login.scss";
 
 export default function Login() {
   const navigate = useNavigate();

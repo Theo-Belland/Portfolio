@@ -6,7 +6,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import "../Styles/modal.scss";
+import "../Styles/layout/_modal.scss";
 
 const SITE_URL = import.meta.env.VITE_SITE_URL || "https://theobelland.fr";
 

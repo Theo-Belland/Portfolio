@@ -1,0 +1,226 @@
+
+
+
+@use "../base/variables" as *;
+@use "../base/mixins" as *;
+
+/* =================== ADMIN DASHBOARD =================== */
+
+.admin-layout {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  background: #000;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ===== SIDEBAR ===== */
+.admin-sidebar {
+  width: 270px;
+  min-width: 220px;
+  max-width: 320px;
+  height: 100vh;
+  background: linear-gradient(160deg, #1a002b 0%, #a855f7 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 2.5rem 1.5rem 2rem 1.5rem;
+  box-shadow: 2px 0 24px rgba(168, 85, 247, 0.10);
+  z-index: 10;
+  position: fixed;
+  left: 0;
+  top: 0;
+  border-radius: 0 32px 32px 0;
+}
+.admin-sidebar h2 {
+  font-size: 2.1rem;
+  font-weight: 800;
+  margin-bottom: 2.5rem;
+  letter-spacing: 1px;
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(68,49,141,0.18);
+  align-self: center;
+}
+.menu-list {
+  list-style: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+.menu-list > li, .menu-item {
+  padding: 1rem 1.2rem;
+  margin-bottom: 0.7rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  color: #fff;
+}
+.menu-list > li:hover, .menu-item:hover {
+  background: rgba(255,255,255,0.13);
+  color: #c084fc;
+}
+.submenu {
+  list-style: none;
+  padding-left: 1.2rem;
+  margin-top: 0.3rem;
+}
+.submenu li {
+  padding: 0.5rem 1rem;
+  border-left: 3px solid #fff;
+  border-radius: 8px;
+  margin-bottom: 0.3rem;
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+.submenu li:hover {
+  background: rgba(255,255,255,0.10);
+  color: #a855f7;
+}
+
+/* ===== CONTENT ===== */
+.admin-content {
+  margin-left: 270px;
+  padding: 3.5rem 3rem 2rem 3rem;
+  flex: 1;
+  z-index: 2;
+  min-height: 100vh;
+  background: transparent;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* ===== TOPBAR ===== */
+.admin-topbar {
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  gap: 1rem;
+}
+.admin-topbar button {
+  background: #fff;
+  border: 1.5px solid #a855f7;
+  color: #a855f7;
+  padding: 0.7rem 1.5rem;
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(168, 85, 247, 0.10);
+  transition: background 0.2s, color 0.2s;
+  &:hover {
+    background: #a855f7;
+    color: #fff;
+  }
+}
+
+/* ===== STAT CARDS ===== */
+.admin-cards {
+  width: 100%;
+  max-width: 1100px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+.admin-card {
+  min-height: 140px;
+  border-radius: 22px;
+  border: none;
+  background: linear-gradient(135deg, #a855f7 0%, #c084fc 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.18rem;
+  color: #fff;
+  box-shadow: 0 6px 32px 0 rgba(168, 85, 247, 0.25), 0 1.5px 8px 0 #000;
+  transition: transform 0.18s, box-shadow 0.18s;
+  backdrop-filter: blur(8px);
+  h3 {
+    color: #fff;
+    font-size: 1.25rem;
+    margin-bottom: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 12px #a855f7, 0 2px 8px rgba(168, 85, 247, 0.18);
+  }
+  &:hover {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 12px 40px 0 #a855f7, 0 2px 12px 0 #000;
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1100px) {
+  .admin-content {
+    margin-left: 0;
+    border-radius: 0;
+    padding: 2rem 0.5rem;
+  }
+  .admin-layout {
+    flex-direction: column;
+  }
+  .admin-sidebar {
+    position: relative;
+    width: 100vw;
+    min-width: unset;
+    max-width: unset;
+    height: auto;
+    border-radius: 0 0 32px 32px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 1.2rem 0.5rem;
+    box-shadow: 0 2px 12px rgba(168, 85, 247, 0.10);
+  }
+  .admin-sidebar h2 {
+    margin-bottom: 0;
+    margin-right: 2rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .admin-sidebar {
+    display: none;
+  }
+  .admin-sidebar.open {
+    display: flex;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 80vw;
+    height: 100vh;
+    border-radius: 0 32px 32px 0;
+    flex-direction: column;
+    align-items: flex-start;
+    z-index: 100;
+    background: linear-gradient(160deg, #a855f7 0%, #44318D 100%);
+    box-shadow: 2px 0 24px rgba(168, 85, 247, 0.10);
+    padding: 2.5rem 1.5rem 2rem 1.5rem;
+  }
+  .admin-content {
+    margin-left: 0;
+    padding: 1.2rem 0.5rem;
+    border-radius: 0;
+  }
+  .hamburger {
+    display: block;
+  }
+  .admin-cards {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+}
